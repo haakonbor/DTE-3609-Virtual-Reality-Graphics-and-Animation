@@ -36,6 +36,17 @@ void Character::privateInit()
     if (err != GL_NO_ERROR)
       std::cout<< "OpenGL error: " << gluErrorString(err) << std::endl;
     std::cout.flush();
+
+//    char *buff = (char*)glGetString(GL_VERSION);
+//    std::cout<< buff << std::endl;
+
+//    char *buff = (char*)glGetString(GL_VENDOR);
+//    std::cout<< buff << std::endl;
+//    buff = (char*)glGetString(GL_RENDERER);
+//    std::cout<< buff;
+
+    char *buff = (char*)glGetString(GL_EXTENSIONS);
+    std::cout<< buff;
 }
 
 void Character::privateRender()
@@ -45,12 +56,6 @@ void Character::privateRender()
     //glEnable(GL_LIGHT0);
     //glEnable(GL_LIGHT1);
     //glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_FOG);
-    glFogi(GL_FOG_MODE, GL_LINEAR);
-    glFogf(GL_FOG_START, 1.0f);
-    glFogf(GL_FOG_END, 500.0f);
-    GLfloat fog_color[4] = {0.5, 0.5, 0.5, 1.0};
-    glFogfv(GL_FOG_COLOR, fog_color);
 
     // Draw cube
     renderCube();
@@ -66,7 +71,7 @@ void Character::privateRender()
     //glDisable(GL_LIGHTING);
     //glDisable(GL_LIGHT0);
     //glDisable(GL_COLOR_MATERIAL);
-    glDisable(GL_FOG);
+//    glDisable(GL_FOG);
 
     GLenum err = glGetError();
     if (err != GL_NO_ERROR)
