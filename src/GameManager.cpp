@@ -22,6 +22,12 @@ void GameManager::privateInit()
   character_.reset(new Character());
   this->addSubObject(character_);
 
+  snow_.reset(new Snow());
+  this->addSubObject(snow_);
+
+  text_.reset(new Text());
+  this->addSubObject(text_);
+
 }
 
 void GameManager::privateRender()
@@ -45,3 +51,5 @@ std::shared_ptr<Character> GameManager::getCharacter()
 {
   return character_;
 }
+
+

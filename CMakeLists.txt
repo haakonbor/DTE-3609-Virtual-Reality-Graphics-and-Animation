@@ -35,6 +35,8 @@ set( INCLUDE
 	include/SceneObject.hpp
         include/Character.hpp
         include/Utils.hpp
+        include/Snow.hpp
+        include/Text.hpp
 
         include/stb_image.h
 )
@@ -44,6 +46,8 @@ set( SRCS
 	src/GameManager.cpp
 	src/SceneObject.cpp
         src/Character.cpp
+        src/Snow.cpp
+        src/Text.cpp
 
         src/stb_image.cpp
 	

@@ -8,6 +8,8 @@
 #include "Landscape.hpp"
 #include "Character.hpp"
 #include "Camera.hpp"
+#include "Snow.hpp"
+#include "Text.hpp"
 
 class GameManager : public SceneObject
 {
@@ -27,5 +29,7 @@ class GameManager : public SceneObject
     std::shared_ptr<Landscape> ls_;
     std::shared_ptr<Character> character_;
     std::shared_ptr<Camera> cam_;
+    std::shared_ptr<Snow> snow_;
+    std::shared_ptr<Text> text_;
 };
 

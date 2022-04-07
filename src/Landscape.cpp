@@ -37,6 +37,7 @@ void Landscape::privateInit()
 
 void Landscape::privateRender()
 {
+    // Draw filled polygons
     glColor3f(0.0f, 1.0f, 0.0f);
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, vertexArray_.data());
@@ -60,15 +61,43 @@ void Landscape::privateRender()
     glVertexPointer(3, GL_FLOAT, 0, vertexArray_.data());
     glDrawArrays(GL_QUADS, 12, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
+
+    // Drawing wireframe of polygons
+    glEnable(GL_POLYGON_OFFSET_LINE);
+    glPolygonOffset(-1.0, -1.0);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, vertexArray_.data());
+    glDrawArrays(GL_QUADS, 0, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, vertexArray_.data());
+    glDrawArrays(GL_QUADS, 4, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, vertexArray_.data());
+    glDrawArrays(GL_QUADS, 8, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, vertexArray_.data());
+    glDrawArrays(GL_QUADS, 12, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDisable(GL_POLYGON_OFFSET_LINE);
+
 }
 
 void Landscape::privateUpdate()
 {
-    //glMatrixMode(GL_MODELVIEW);
-    //glPushMatrix();
-    //glLoadIdentity();
-    //glTranslatef(10.0f, 0.0f, 0.0f);
-    //glRotatef(1.0f, 0.0f, 1.0f, 0.0f);
-    //glPopMatrix();
+
 }
 
