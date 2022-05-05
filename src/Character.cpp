@@ -45,8 +45,8 @@ void Character::privateInit()
 //    buff = (char*)glGetString(GL_RENDERER);
 //    std::cout<< buff;
 
-    char *buff = (char*)glGetString(GL_EXTENSIONS);
-    std::cout<< buff;
+//    char *buff = (char*)glGetString(GL_EXTENSIONS);
+//    std::cout<< buff;
 }
 
 void Character::privateRender()
@@ -162,33 +162,38 @@ void Character::setUpVertices()
 void Character::setUpNormals()
 {
     // Normals
-    for (size_t current_offset = 0; current_offset < vertexArray_.size(); current_offset += 4) {
+    for (size_t face_offset = 0; face_offset < vertexArray_.size(); face_offset += 4) {
+        // Bottom left
         normalArray_.push_back(glm::cross(
-                    vertexArray_[BOTTOMRIGHT + current_offset] - vertexArray_[BOTTOMLEFT + current_offset],
-                    vertexArray_[TOPLEFT + current_offset] - vertexArray_[BOTTOMLEFT + current_offset]
-                    ));
-        normalArray_[BOTTOMLEFT + current_offset] =
-                normalArray_[BOTTOMLEFT + current_offset] / glm::length(normalArray_[BOTTOMLEFT + current_offset]);
+                    vertexArray_[BOTTOMRIGHT + face_offset] - vertexArray_[BOTTOMLEFT + face_offset],
+                    vertexArray_[TOPLEFT + face_offset] - vertexArray_[BOTTOMLEFT + face_offset]));
 
-        normalArray_.push_back(glm::cross(
-                    vertexArray_[TOPRIGHT + current_offset] - vertexArray_[BOTTOMRIGHT + current_offset],
-                    vertexArray_[BOTTOMLEFT + current_offset] - vertexArray_[BOTTOMRIGHT + current_offset]));
-        normalArray_[BOTTOMRIGHT + current_offset] =
-                normalArray_[BOTTOMRIGHT + current_offset] / glm::length(normalArray_[BOTTOMRIGHT + current_offset]);
+        normalArray_[BOTTOMLEFT + face_offset] =
+                normalArray_[BOTTOMLEFT + face_offset] / glm::length(normalArray_[BOTTOMLEFT + face_offset]);
 
+        // Bottom right
         normalArray_.push_back(glm::cross(
-                    vertexArray_[TOPLEFT + current_offset] - vertexArray_[TOPRIGHT + current_offset],
-                    vertexArray_[BOTTOMRIGHT + current_offset] - vertexArray_[TOPRIGHT + current_offset]
-                    ));
-        normalArray_[TOPRIGHT + current_offset] =
-                normalArray_[TOPRIGHT + current_offset] / glm::length(normalArray_[TOPRIGHT + current_offset]);
+                    vertexArray_[TOPRIGHT + face_offset] - vertexArray_[BOTTOMRIGHT + face_offset],
+                    vertexArray_[BOTTOMLEFT + face_offset] - vertexArray_[BOTTOMRIGHT + face_offset]));
 
+        normalArray_[BOTTOMRIGHT + face_offset] =
+                normalArray_[BOTTOMRIGHT + face_offset] / glm::length(normalArray_[BOTTOMRIGHT + face_offset]);
+
+        // Top right
         normalArray_.push_back(glm::cross(
-                    vertexArray_[BOTTOMLEFT + current_offset] - vertexArray_[TOPLEFT + current_offset],
-                    vertexArray_[TOPRIGHT + current_offset] - vertexArray_[TOPLEFT + current_offset]
-                    ));
-        normalArray_[TOPLEFT + current_offset] =
-                normalArray_[TOPLEFT + current_offset] / glm::length(normalArray_[TOPLEFT + current_offset]);
+                    vertexArray_[TOPLEFT + face_offset] - vertexArray_[TOPRIGHT + face_offset],
+                    vertexArray_[BOTTOMRIGHT + face_offset] - vertexArray_[TOPRIGHT + face_offset]));
+
+        normalArray_[TOPRIGHT + face_offset] =
+                normalArray_[TOPRIGHT + face_offset] / glm::length(normalArray_[TOPRIGHT + face_offset]);
+
+        // Top left
+        normalArray_.push_back(glm::cross(
+                    vertexArray_[BOTTOMLEFT + face_offset] - vertexArray_[TOPLEFT + face_offset],
+                    vertexArray_[TOPRIGHT + face_offset] - vertexArray_[TOPLEFT + face_offset]));
+
+        normalArray_[TOPLEFT + face_offset] =
+                normalArray_[TOPLEFT + face_offset] / glm::length(normalArray_[TOPLEFT + face_offset]);
     }
 
     // Shared normals
@@ -360,9 +365,9 @@ void Character::setUpHBTextures()
 
 void Character::privateUpdate()
 {
-//    auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f * speed_, 0.0f, 0.0f));
-//    auto rotation = glm::rotate(matrix_, 0.01f, glm::vec3(0.0f,1.0f,0.0f));
-//    matrix_ = translation * rotation;
+    auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f * speed_, 0.0f, 0.0f));
+    auto rotation = glm::rotate(matrix_, 0.01f, glm::vec3(0.0f,1.0f,0.0f));
+    matrix_ = translation * rotation;
 }
 
 void Character::increaseSpeed()

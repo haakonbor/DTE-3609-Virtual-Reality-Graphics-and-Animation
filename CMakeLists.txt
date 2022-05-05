@@ -37,7 +37,9 @@ set( INCLUDE
         include/Utils.hpp
         include/Snow.hpp
         include/Text.hpp
+        include/Minimap.hpp
 
+        include/GLErrorHandler.h
         include/stb_image.h
 )
 set( SRCS
@@ -48,7 +50,9 @@ set( SRCS
         src/Character.cpp
         src/Snow.cpp
         src/Text.cpp
+        src/Minimap.cpp
 
+        src/GLErrorHandler.cpp
         src/stb_image.cpp
 	
         app/main.cpp

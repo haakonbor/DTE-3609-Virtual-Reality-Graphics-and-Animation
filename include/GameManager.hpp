@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 
@@ -10,6 +11,7 @@
 #include "Camera.hpp"
 #include "Snow.hpp"
 #include "Text.hpp"
+#include "Minimap.hpp"
 
 class GameManager : public SceneObject
 {
@@ -31,5 +33,6 @@ class GameManager : public SceneObject
     std::shared_ptr<Camera> cam_;
     std::shared_ptr<Snow> snow_;
     std::shared_ptr<Text> text_;
+    std::shared_ptr<Minimap> minimap_;
 };
 

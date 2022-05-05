@@ -12,12 +12,13 @@ void GameManager::privateInit()
 {
   // Set default OpenGL states
   glEnable(GL_CULL_FACE);
-  glEnable(GL_FOG);
-  glFogi(GL_FOG_MODE, GL_LINEAR);
-  glFogf(GL_FOG_START, 1.0f);
-  glFogf(GL_FOG_END, 500.0f);
-  GLfloat fog_color[4] = {0.5, 0.5, 0.5, 1.0};
-  glFogfv(GL_FOG_COLOR, fog_color);
+
+//  glEnable(GL_FOG);
+//  glFogi(GL_FOG_MODE, GL_LINEAR);
+//  glFogf(GL_FOG_START, 1.0f);
+//  glFogf(GL_FOG_END, 500.0f);
+//  GLfloat fog_color[4] = {0.5, 0.5, 0.5, 1.0};
+//  glFogfv(GL_FOG_COLOR, fog_color);
 
   // Adding the camera to the scene
   cam_.reset(new Camera());
@@ -33,6 +34,9 @@ void GameManager::privateInit()
 
   text_.reset(new Text());
   this->addSubObject(text_);
+
+  minimap_.reset(new Minimap());
+  this->addSubObject(minimap_);
 
 }
 

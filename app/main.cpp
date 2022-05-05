@@ -1,5 +1,6 @@
 
 #include <windows.h>
+#include "GL/glew.h"
 #include <GL/freeglut.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,6 +23,8 @@ float moveX, moveY;
 
 void init()
 {
+  glewInit();
+
   glClearColor(1.0, 1.0, 1.0, 0.0);
   glShadeModel(GL_SMOOTH);
   glEnable(GL_DEPTH_TEST);
