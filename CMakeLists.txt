@@ -38,6 +38,11 @@ set( INCLUDE
         include/Snow.hpp
         include/Text.hpp
         include/Minimap.hpp
+        include/IndexBuffer.h
+        include/Shader.h
+        include/VertexArray.h
+        include/VertexBuffer.h
+        include/VertexBufferLayout.h
 
         include/GLErrorHandler.h
         include/stb_image.h
@@ -51,6 +56,10 @@ set( SRCS
         src/Snow.cpp
         src/Text.cpp
         src/Minimap.cpp
+        src/IndexBuffer.cpp
+        src/Shader.cpp
+        src/VertexArray.cpp
+        src/VertexBuffer.cpp
 
         src/GLErrorHandler.cpp
         src/stb_image.cpp
