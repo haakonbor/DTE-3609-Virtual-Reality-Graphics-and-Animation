@@ -33,14 +33,6 @@ void Landscape::privateInit()
   vertexArray_.push_back(glm::vec3(1000.0f, -1000.0f, -500.0f));
   vertexArray_.push_back(glm::vec3(1000.0f, 1000.0f, -500.0f));
   vertexArray_.push_back(glm::vec3(-1000.0f, 1000.0f, -500.0f));
-
-  vbo = VertexBuffer(vertexArray_.data(), vertexArray_.size() * 3 * sizeof(float));
-  layout.Push<float>(3);
-
-  vao.AddBuffer(vbo, layout);
-
-  // 4 points in a quad, 3 quads in total
-  ibo = IndexBuffer(indices_, 4 * 3);
 }
 
 void Landscape::privateRender()

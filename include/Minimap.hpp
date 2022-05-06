@@ -3,10 +3,8 @@
 #include <windows.h>
 #include <iostream>
 
-#include <GL/glew.h>
-#include <GL/gl.h>
-
 #include "SceneObject.hpp"
+#include <GL/gl.h>
 
 class Minimap : public SceneObject {
 public:
