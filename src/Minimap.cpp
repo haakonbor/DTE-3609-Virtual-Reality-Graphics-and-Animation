@@ -1,11 +1,11 @@
-#include <windows.h>
-#include "GL/glew.h"
-#include <GL/glut.h>
-#include <GL/gl.h>
+//#include <windows.h>
+//#include "GL/glew.h"
+//#include <GL/glut.h>
+//#include <GL/gl.h>
 
 
 #include "../include/Minimap.hpp"
-#include "../include/GLErrorHandler.h"
+//#include "../include/GLErrorHandler.h"
 
 //GLuint g_fbo;				// frame buffer object
 //GLuint g_pbo;				// pixel buffer object

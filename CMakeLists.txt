@@ -27,34 +27,43 @@ endif(NOT OPENGL_FOUND)
 
 set( INCLUDE
         include/Landscape.hpp
-	include/Camera.hpp
-	include/Clock.hpp
-	include/FpsCounter.hpp
-	include/GameManager.hpp
-	include/Input.hpp
-	include/SceneObject.hpp
+        include/Camera.hpp
+        include/Clock.hpp
+        include/FpsCounter.hpp
+        include/GameManager.hpp
+        include/Input.hpp
+        include/SceneObject.hpp
         include/Character.hpp
         include/Utils.hpp
         include/Snow.hpp
         include/Text.hpp
         include/Minimap.hpp
+        include/IndexBuffer.h
+        include/Shader.h
+        include/VertexArray.h
+        include/VertexBuffer.h
+        include/VertexBufferLayout.h
 
         include/GLErrorHandler.h
         include/stb_image.h
 )
 set( SRCS
         src/Landscape.cpp
-	src/Camera.cpp
-	src/GameManager.cpp
-	src/SceneObject.cpp
+        src/Camera.cpp
+        src/GameManager.cpp
+        src/SceneObject.cpp
         src/Character.cpp
         src/Snow.cpp
         src/Text.cpp
         src/Minimap.cpp
+        src/IndexBuffer.cpp
+        src/Shader.cpp
+        src/VertexArray.cpp
+        src/VertexBuffer.cpp
 
         src/GLErrorHandler.cpp
         src/stb_image.cpp
-	
+
         app/main.cpp
 
 

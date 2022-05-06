@@ -1,8 +1,8 @@
 #pragma once
 
-#include <iostream>
-
+#include <windows.h>
 #include <GL/glew.h>
+#include <iostream>
 
 #define ASSERT(x) if (!(x)) __debugbreak();
 #define GLCall(x) GLClearError();\

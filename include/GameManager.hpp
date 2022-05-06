@@ -2,9 +2,6 @@
 
 #include <windows.h>
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-
 #include "SceneObject.hpp"
 #include "Landscape.hpp"
 #include "Character.hpp"
@@ -12,6 +9,12 @@
 #include "Snow.hpp"
 #include "Text.hpp"
 #include "Minimap.hpp"
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+
+
 
 class GameManager : public SceneObject
 {

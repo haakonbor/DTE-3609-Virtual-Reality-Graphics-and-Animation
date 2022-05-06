@@ -1,9 +1,9 @@
+#include <windows.h>
 #include "../include/SceneObject.hpp"
 
-#include <windows.h>
-#include <GL/gl.h>
 #include "../../glm-master/glm/glm.hpp"
 #include "../../glm-master/glm/gtc/type_ptr.hpp"
+#include <GL/gl.h>
 
 // NB! Check matrix mult and scoped_ptr
 

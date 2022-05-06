@@ -1,10 +1,11 @@
 #pragma once
 
 #include <windows.h>
+#include <GL/glew.h>
+#include <GL/gl.h>
 #include <iostream>
 
 #include "SceneObject.hpp"
-#include <GL/gl.h>
 
 class Minimap : public SceneObject {
 public:
