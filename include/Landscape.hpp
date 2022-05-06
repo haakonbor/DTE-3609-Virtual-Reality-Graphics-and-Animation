@@ -32,7 +32,7 @@ private:
     // texture coord array
     std::vector< glm::vec3 > textureArray_;
 
-    unsigned int positions_[3 * 4 * 3] = {
+    float positions_[3 * 4 * 4] = {
         // Left plane
         -100.0f, -50.0f, 50.0f,
         0.0f, -50.0f, 50.0f,
