@@ -13,6 +13,9 @@
 #include "SceneObject.hpp"
 #include "../../glm-master/glm/glm.hpp"
 
+#define POS_ARRAY_SIZE 48
+#define IND_ARRAY_SIZE 12
+
 class Landscape : public SceneObject
 {
 public:
@@ -32,7 +35,7 @@ private:
     // texture coord array
     std::vector< glm::vec3 > textureArray_;
 
-    float positions_[3 * 4 * 4] = {
+    float positions_[POS_ARRAY_SIZE] = {
         // Left plane
         -100.0f, -50.0f, 50.0f,
         0.0f, -50.0f, 50.0f,
@@ -58,15 +61,15 @@ private:
         -1000.0f, 1000.0f, -500.0f
     };
 
-    unsigned int indices_[4 * 3] = {
+    unsigned int indices_[IND_ARRAY_SIZE] = {
         0, 1, 2, 3,
         4, 5, 6, 7,
         8, 9, 10, 11
     };
 
     VertexArray vao;
-    VertexBuffer vbo;
+    VertexBuffer vbo = VertexBuffer(positions_, POS_ARRAY_SIZE * 3 * sizeof(float));
     VertexBufferLayout layout;
-    IndexBuffer ibo;
+    IndexBuffer ibo = IndexBuffer(indices_, IND_ARRAY_SIZE);
 };
 

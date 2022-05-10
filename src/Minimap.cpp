@@ -46,8 +46,8 @@ void Minimap::privateRender() {
 
     // render to texture
     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, g_fbo);
-//    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //    glLoadIdentity();
 
     // place camera/eye

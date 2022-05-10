@@ -10,14 +10,8 @@ Landscape::~Landscape()
 
 void Landscape::privateInit()
 {
-
-
-  vbo = VertexBuffer(vertexArray_.data(), vertexArray_.size() * 3 * sizeof(float));
   layout.Push<float>(3);
   vao.AddBuffer(vbo, layout);
-
-  // 4 points in a quad, 3 quads in total
-  ibo = IndexBuffer(indices_, 4 * 3);
 
   vao.Unbind();
   vbo.Unbind();
@@ -30,6 +24,9 @@ void Landscape::privateRender()
     ibo.Bind();
 
     GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
+
+    vao.Unbind();
+    ibo.Unbind();
 
 //    // Draw filled polygons
 //    glColor3f(0.0f, 1.0f, 0.0f);
