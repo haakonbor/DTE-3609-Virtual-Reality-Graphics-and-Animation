@@ -10,8 +10,19 @@ Landscape::~Landscape()
 
 void Landscape::privateInit()
 {
+  // 3 floats for position
   layout.Push<float>(3);
+  // 2 floats for texture position
+  layout.Push<float>(2);
+
   vao.AddBuffer(vbo, layout);
+
+  shader.Bind();
+  shader.SetUniform4f("u_Color", 0.1f, 0.5f, 0.5f, 1.0f);
+
+  unsigned int textureSlot = 0;
+  texture.Bind(textureSlot);
+  shader.SetUniform1i("u_Texture", textureSlot);
 
   vao.Unbind();
   vbo.Unbind();

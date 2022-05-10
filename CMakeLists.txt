@@ -43,6 +43,7 @@ set( INCLUDE
         include/VertexArray.h
         include/VertexBuffer.h
         include/VertexBufferLayout.h
+        include/Texture.h
 
         include/GLErrorHandler.h
         include/stb_image.h
@@ -60,6 +61,7 @@ set( SRCS
         src/Shader.cpp
         src/VertexArray.cpp
         src/VertexBuffer.cpp
+        src/Texture.cpp
 
         src/GLErrorHandler.cpp
         src/stb_image.cpp

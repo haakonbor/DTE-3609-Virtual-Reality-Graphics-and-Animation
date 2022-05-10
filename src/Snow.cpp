@@ -33,7 +33,7 @@ void Snow::privateInit() {
 }
 
 void Snow::privateRender() {
-/*
+
     glLoadIdentity();										// Reset The ModelView Matrix
 
     for (loop=0;loop<MAX_PARTICLES;loop++)					// Loop Through All The Particles
@@ -81,7 +81,7 @@ void Snow::privateRender() {
             }
         }
     }
-    */
+
 }
 
 void Snow::privateUpdate() {
@@ -89,11 +89,6 @@ void Snow::privateUpdate() {
 }
 
 void Snow::setUpTexture() {
-//    textureArray_.push_back(glm::vec2(0.0f, 1.0f));
-//    textureArray_.push_back(glm::vec2(1.0f, 1.0f));
-//    textureArray_.push_back(glm::vec2(1.0f, 0.0f));
-//    textureArray_.push_back(glm::vec2(0.0f, 0.0f));
-
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     glGenTextures(1, &texture);
@@ -105,7 +100,7 @@ void Snow::setUpTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("C:/dev/DTE-3609/start_code/resources/snowflake.jpg", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/snowflake.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);

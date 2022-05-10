@@ -4,6 +4,8 @@
 #include "../include/VertexBuffer.h"
 #include "../include/VertexBufferLayout.h"
 #include "../include/IndexBuffer.h"
+#include "../include/Shader.h"
+#include "../include/Texture.h""
 
 #include <windows.h>
 #include <GL/freeglut.h>
@@ -12,8 +14,9 @@
 #include "SceneObject.hpp"
 #include "../../glm-master/glm/glm.hpp"
 
-#define POS_ARRAY_SIZE 48
-#define IND_ARRAY_SIZE 12
+// 4 points with 3D position and 2D texture position
+#define POS_ARRAY_SIZE 4 * (3 + 2)
+#define IND_ARRAY_SIZE 4
 
 class Landscape : public SceneObject
 {
@@ -36,39 +39,42 @@ private:
 
     float positions_[POS_ARRAY_SIZE] = {
         // Left plane
-        -100.0f, -50.0f, 50.0f,
-        0.0f, -50.0f, 50.0f,
-        0.0f, -50.0f, -50.0f,
-        -100.0f, -50.0f, -50.0f,
+        -100.0f, -50.0f, 100.0f, 0.0f, 0.0f,
+        100.0f, -50.0f, 100.0f, 1.0f, 0.0f,
+        100.0f, -50.0f, -100.0f, 1.0f, 1.0f,
+        -100.0f, -50.0f, -100.0f, 0.0f, 1.0f
 
-        // Middle plane
-        0.0f, -50.0f, 50.0f,
-        100.0f, -50.0f, 50.0f,
-        100.0f, -50.0f, -50.0f,
-        0.0f, -50.0f, -50.0f,
+//        // Middle plane
+//        0.0f, -50.0f, 50.0f,
+//        100.0f, -50.0f, 50.0f,
+//        100.0f, -50.0f, -50.0f,
+//        0.0f, -50.0f, -50.0f,
 
-        // Right plane
-        100.0f, -50.0f, 50.0f,
-        200.0f, -50.0f, 50.0f,
-        200.0f, -50.0f, -50.0f,
-        100.0f, -50.0f, -50.0f,
+//        // Right plane
+//        100.0f, -50.0f, 50.0f,
+//        200.0f, -50.0f, 50.0f,
+//        200.0f, -50.0f, -50.0f,
+//        100.0f, -50.0f, -50.0f,
 
-        // Background
-        -1000.0f, -1000.0f, -500.0f,
-        1000.0f, -1000.0f, -500.0f,
-        1000.0f, 1000.0f, -500.0f,
-        -1000.0f, 1000.0f, -500.0f
+//        // Background
+//        -1000.0f, -1000.0f, -500.0f,
+//        1000.0f, -1000.0f, -500.0f,
+//        1000.0f, 1000.0f, -500.0f,
+//        -1000.0f, 1000.0f, -500.0f
     };
 
     unsigned int indices_[IND_ARRAY_SIZE] = {
         0, 1, 2, 3,
-        4, 5, 6, 7,
-        8, 9, 10, 11
+//        4, 5, 6, 7,
+//        8, 9, 10, 11,
+//        12, 13, 14, 15
     };
 
     VertexArray vao;
-    VertexBuffer vbo = VertexBuffer(positions_, POS_ARRAY_SIZE * 3 * sizeof(float));
+    VertexBuffer vbo = VertexBuffer(positions_, POS_ARRAY_SIZE * sizeof(float));
     VertexBufferLayout layout;
     IndexBuffer ibo = IndexBuffer(indices_, IND_ARRAY_SIZE);
+    Shader shader = Shader("../resources/shaders/Vertex.shader", "../resources/shaders/Fragment.shader");
+
 };
 

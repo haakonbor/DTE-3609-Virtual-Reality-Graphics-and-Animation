@@ -6,11 +6,12 @@
 #include <string>
 #include <sstream>
 
-Shader::Shader(const std::string& filepath)
-	: m_FilePath(filepath), m_RendererID(0)
+Shader::Shader(const std::string& vertexShaderFilepath, const std::string& fragmentShaderFilepath)
+    : m_VertexShaderFilePath(vertexShaderFilepath), m_FragmentShaderFilePath(fragmentShaderFilepath), m_RendererID(0)
 {
-    ShaderProgramSource source = ParseShader(filepath);
-    m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
+    const std::string vertexSource = ParseShader(vertexShaderFilepath);
+    const std::string fragmentSource = ParseShader(fragmentShaderFilepath);
+    m_RendererID = CreateShader(vertexSource, fragmentSource);
 }
 
 Shader::~Shader()
@@ -56,36 +57,24 @@ int Shader::GetUniformLocation(const std::string& name)
     }
 
     m_UniformLocationCache[name] = location;
-    
+
     return location;
 }
 
-ShaderProgramSource Shader::ParseShader(const std::string& filepath) {
+std::string Shader::ParseShader(const std::string& filepath) {
     std::ifstream stream(filepath);
-
-    enum class ShaderType {
-        NONE = -1, VERTEX = 0, FRAGMENT = 1
-    };
-
     std::string line;
-    std::stringstream stringStream[2];
-    ShaderType type = ShaderType::NONE;
+    std::string result;
 
     while (getline(stream, line)) {
-        if (line.find("shader") != std::string::npos) {
-            if (line.find("vertex") != std::string::npos) {
-                type = ShaderType::VERTEX;
-            }
-            else if (line.find("fragment") != std::string::npos) {
-                type = ShaderType::FRAGMENT;
-            }
+        if (line.find("shader") != std::string::npos || line.find("//") != std::string::npos) {
+            continue;
         }
-        else if (line.find("//") == std::string::npos) {
-            stringStream[(int)type] << line << '\n';
-        }
+
+        result += line + '\n';
     }
 
-    return { stringStream[0].str(), stringStream[1].str() };
+    return result;
 }
 
 unsigned int Shader::CompileShader(unsigned int type, const std::string& source) {
