@@ -100,7 +100,7 @@ void Snow::setUpTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/snowflake.jpg", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load("../resources/textures/snowflake.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);

@@ -5,7 +5,7 @@
 #include "../include/VertexBufferLayout.h"
 #include "../include/IndexBuffer.h"
 #include "../include/Shader.h"
-#include "../include/Texture.h""
+#include "../include/Texture.h"
 
 #include <windows.h>
 #include <GL/freeglut.h>
@@ -75,6 +75,6 @@ private:
     VertexBufferLayout layout;
     IndexBuffer ibo = IndexBuffer(indices_, IND_ARRAY_SIZE);
     Shader shader = Shader("../resources/shaders/Vertex.shader", "../resources/shaders/Fragment.shader");
-
+    Texture texture = Texture("../resources/color.jpg");
 };
 
