@@ -1,5 +1,7 @@
 #include "../include/Shader.h"
 #include "../include/GLErrorHandler.h"
+#include "../../glm-master/glm/glm.hpp"
+#include "../../glm-master/glm/gtc/type_ptr.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -9,9 +11,9 @@
 Shader::Shader(const std::string& vertexShaderFilepath, const std::string& fragmentShaderFilepath)
     : m_VertexShaderFilePath(vertexShaderFilepath), m_FragmentShaderFilePath(fragmentShaderFilepath), m_RendererID(0)
 {
-    const std::string vertexSource = ParseShader(vertexShaderFilepath);
-    const std::string fragmentSource = ParseShader(fragmentShaderFilepath);
-    m_RendererID = CreateShader(vertexSource, fragmentSource);
+    m_VertexShaderSource = ParseShader(vertexShaderFilepath);
+    m_FragmentShaderSource = ParseShader(fragmentShaderFilepath);
+    m_RendererID = CreateShader(m_VertexShaderSource, m_FragmentShaderSource);
 }
 
 Shader::~Shader()
@@ -41,7 +43,7 @@ void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2,
 
 void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)
 {
-    GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
+    GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix)));
 }
 
 int Shader::GetUniformLocation(const std::string& name)

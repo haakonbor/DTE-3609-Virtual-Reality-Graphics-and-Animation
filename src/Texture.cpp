@@ -8,6 +8,10 @@ Texture::Texture(const std::string& filepath)
 {
 	stbi_set_flip_vertically_on_load(1);
 	m_LocalBuffer = stbi_load(filepath.c_str(), &m_Width, &m_Height, &m_BPP, 4);
+    if (!m_LocalBuffer)
+    {
+        std::cout << "FAILED TO LOAD TEXTURE FROM " << filepath  <<"\nFAILURE REASON: "<< stbi_failure_reason() << std::endl;
+    }
 
 	GLCall(glGenTextures(1, &m_RendererID));
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_RendererID));
@@ -32,7 +36,7 @@ Texture::~Texture()
 
 void Texture::Bind(unsigned int slot) const
 {
-	GLCall(glActiveTexture(GL_TEXTURE0 + slot));
+    GLCall(glActiveTexture(GL_TEXTURE0 + slot));
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_RendererID));
 }
 

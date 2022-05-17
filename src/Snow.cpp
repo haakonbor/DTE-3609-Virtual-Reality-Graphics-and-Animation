@@ -100,14 +100,15 @@ void Snow::setUpTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("../resources/textures/snowflake.jpg", &width, &height, &nrChannels, 0);
+    std::string filepath = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/snowflake.jpg";
+    unsigned char *data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     }
     else
     {
-        std::cout << "FAILED TO LOAD TEXTURE: " << stbi_failure_reason() << std::endl;
+        std::cout << "FAILED TO LOAD TEXTURE FROM " << filepath <<"\nFAILURE REASON: "<< stbi_failure_reason() << std::endl;
     }
     glBindTexture(GL_TEXTURE_2D, 0);
     stbi_image_free(data);

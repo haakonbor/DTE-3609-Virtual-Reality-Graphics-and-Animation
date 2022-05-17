@@ -1,4 +1,6 @@
 #include "../include/Landscape.hpp"
+#include "../../glm-master/glm/glm.hpp"
+#include "../../glm-master/glm/gtc/type_ptr.hpp"
 
 Landscape::Landscape()
 {
@@ -10,34 +12,57 @@ Landscape::~Landscape()
 
 void Landscape::privateInit()
 {
-  // 3 floats for position
-  layout.Push<float>(3);
-  // 2 floats for texture position
-  layout.Push<float>(2);
+  /* VERTEX BUFFER */
+  // Is set up in initialization of object attribute
 
+  /* LAYOUT */
+  // 3 floats for world position
+  layout.Push<float>(3);
+//  // 2 floats for texture position
+//  layout.Push<float>(2);
+
+  /* VERTEX ARRAY */
   vao.AddBuffer(vbo, layout);
 
+  /* INDEX BUFFER */
+  // Is set up in initialization of object attribute
+
+  /* SHADER */
   shader.Bind();
-  shader.SetUniform4f("u_Color", 0.1f, 0.5f, 0.5f, 1.0f);
+  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
 
-  unsigned int textureSlot = 0;
-  texture.Bind(textureSlot);
-  shader.SetUniform1i("u_Texture", textureSlot);
+  /* TEXTURE */
+//  unsigned int textureSlot = 0;
+//  texture.Bind(textureSlot);
+//  shader.SetUniform1i("u_Texture", textureSlot);
 
+  /* UNBINDING */
   vao.Unbind();
   vbo.Unbind();
   ibo.Unbind();
+  shader.Unbind();
+
 }
 
 void Landscape::privateRender()
 {
+    shader.Bind();
     vao.Bind();
     ibo.Bind();
+//    shader.SetUniformMat4f("u_MVP", matrix_);
+
+    glm::mat4 trans = glm::mat4(1.0f);
+//    trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+//    trans = glm::rotate(trans, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+    matrix_ = matrix_ * trans;
+    shader.SetUniformMat4f("u_MVP", matrix_);
+
 
     GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
 
-    vao.Unbind();
     ibo.Unbind();
+    vao.Unbind();
+    shader.Unbind();
 
 //    // Draw filled polygons
 //    glColor3f(0.0f, 1.0f, 0.0f);

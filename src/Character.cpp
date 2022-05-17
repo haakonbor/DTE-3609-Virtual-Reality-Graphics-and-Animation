@@ -350,14 +350,15 @@ void Character::setUpHBTextures()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("../resources/textures/HP.jpg", &width, &height, &nrChannels, 0);
+    std::string filepath = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/HP.jpg";
+    unsigned char *data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     }
     else
     {
-        std::cout << "FAILED TO LOAD TEXTURE: " << stbi_failure_reason() << std::endl;
+        std::cout << "FAILED TO LOAD TEXTURE FROM " << filepath <<"\nFAILURE REASON: "<< stbi_failure_reason() << std::endl;
     }
     glBindTexture(GL_TEXTURE_2D, 0);
     stbi_image_free(data);
@@ -368,6 +369,7 @@ void Character::privateUpdate()
     auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f * speed_, 0.0f, 0.0f));
     auto rotation = glm::rotate(matrix_, 0.01f, glm::vec3(0.0f,1.0f,0.0f));
     matrix_ = translation * rotation;
+
 }
 
 void Character::increaseSpeed()

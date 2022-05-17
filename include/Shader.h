@@ -5,19 +5,14 @@
 
 #include "../../glm-master/glm/glm.hpp"
 
-
-struct ShaderProgramSource {
-    std::string VertexSource;
-    std::string FragmentSource;
-};
-
-
 class Shader {
 private:
     std::string m_VertexShaderFilePath;
     std::string m_FragmentShaderFilePath;
     unsigned int m_RendererID;
     std::unordered_map<std::string, int> m_UniformLocationCache;
+    std::string m_VertexShaderSource;
+    std::string m_FragmentShaderSource;
 
 public:
     Shader(const std::string& vertexShaderFilepath, const std::string& fragmentShaderFilepath);
@@ -25,6 +20,7 @@ public:
 
     void Bind() const;
     void Unbind() const;
+
 
     // Set uniforms
     void SetUniform1i(const std::string& name, int value);
