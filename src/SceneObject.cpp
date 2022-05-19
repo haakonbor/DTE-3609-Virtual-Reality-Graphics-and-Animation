@@ -32,8 +32,11 @@ void SceneObject::update(double fps)
   this->fps_ = fps;
   this->privateUpdate();
   for(std::vector<std::shared_ptr<SceneObject> >::iterator it = children_.begin();
-      it != children_.end(); it++)
+      it != children_.end(); it++) {
+      (*it)->viewMatrix_ = matrix_;
       (*it)->update(fps);
+  }
+
 }
 
 void SceneObject::init()

@@ -44,6 +44,7 @@ set( INCLUDE
         include/VertexBuffer.h
         include/VertexBufferLayout.h
         include/Texture.h
+        include/Projection.h
 
         include/GLErrorHandler.h
         include/stb_image.h

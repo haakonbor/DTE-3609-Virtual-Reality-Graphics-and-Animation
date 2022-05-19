@@ -2,6 +2,8 @@
 #include "../../glm-master/glm/glm.hpp"
 #include "../../glm-master/glm/gtc/type_ptr.hpp"
 
+#include "../include/Projection.h"
+
 Landscape::Landscape()
 {
 }
@@ -49,14 +51,11 @@ void Landscape::privateRender()
     shader.Bind();
     vao.Bind();
     ibo.Bind();
-//    shader.SetUniformMat4f("u_MVP", matrix_);
 
-    glm::mat4 trans = glm::mat4(1.0f);
-//    trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
-//    trans = glm::rotate(trans, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-    matrix_ = matrix_ * trans;
-    shader.SetUniformMat4f("u_MVP", matrix_);
+    glm::mat4 projectionMatrix = glm::perspective(glm::radians(proj::PoV), proj::aspectRatio, proj::nearClip, proj::farClip);
+    glm::mat4 mvp = projectionMatrix * viewMatrix_ * matrix_;
 
+    shader.SetUniformMat4f("u_MVP", mvp);
 
     GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
 

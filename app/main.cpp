@@ -9,6 +9,7 @@
 #include "../include/FpsCounter.hpp"
 #include "../include/GameManager.hpp"
 #include "../../glm-master/glm/glm.hpp"
+#include "../include/Projection.h"
 
 #include <iostream>
 
@@ -181,7 +182,7 @@ void reshape(int w, int h)
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 
-  gluPerspective(60.0f, float(w)/float(h) ,1.0f, 3000.0f);
+  gluPerspective(proj::PoV, proj::aspectRatio, proj::nearClip, proj::farClip);
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
@@ -191,7 +192,7 @@ int main(int argc, char** argv)
 {
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGB);
-  glutInitWindowSize(900, 700);
+  glutInitWindowSize(proj::width, proj::height);
   glutInitWindowPosition(200, 10);
   window = glutCreateWindow("Game application");
   init();

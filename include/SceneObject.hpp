@@ -69,6 +69,9 @@ class SceneObject
   // Relative to the object's parent. Defaults to the identity matrix.
   glm::mat4 matrix_;
 
+  // View matrix
+  glm::mat4 viewMatrix_;
+
  private:
   // List of all SceneObjects that belong to the current object.
   std::vector<std::shared_ptr<SceneObject> > children_;
