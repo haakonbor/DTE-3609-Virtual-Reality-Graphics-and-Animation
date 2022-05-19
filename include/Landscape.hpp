@@ -15,7 +15,7 @@
 #include "../../glm-master/glm/glm.hpp"
 
 // 4 points with 3D position and 2D texture position
-#define POS_ARRAY_SIZE 4 * 4 * 3 //4 * 4 * (3 + 2)
+#define POS_ARRAY_SIZE 4 * 4 * (3 + 2) //4 * 4 * (3 + 2)
 #define IND_ARRAY_SIZE 4 * 4 //4 * 4
 
 class Landscape : public SceneObject
@@ -43,28 +43,28 @@ private:
 //        0.5f, 0.5f, 3.0f,
 //        -0.5f, 0.5f, 0.0f
         // Left plane
-        -100.0f, -50.0f, 100.0f, //0.0f, 0.0f,
-        100.0f, -50.0f, 100.0f, //1.0f, 0.0f,
-        100.0f, -50.0f, -100.0f, //1.0f, 1.0f,
-        -100.0f, -50.0f, -100.0f, //0.0f, 1.0f,
+        -100.0f, -50.0f, 100.0f, 0.0f, 0.0f,
+        100.0f, -50.0f, 100.0f, 1.0f, 0.0f,
+        100.0f, -50.0f, -100.0f, 1.0f, 1.0f,
+        -100.0f, -50.0f, -100.0f, 0.0f, 1.0f,
 
         // Middle plane
-        0.0f, -50.0f, 50.0f,
-        100.0f, -50.0f, 50.0f,
-        100.0f, -50.0f, -50.0f,
-        0.0f, -50.0f, -50.0f,
+        0.0f, -50.0f, 50.0f, 0.0f, 0.0f,
+        100.0f, -50.0f, 50.0f, 1.0f, 0.0f,
+        100.0f, -50.0f, -50.0f, 1.0f, 1.0f,
+        0.0f, -50.0f, -50.0f, 0.0f, 1.0f,
 
         // Right plane
-        100.0f, -50.0f, 50.0f,
-        200.0f, -50.0f, 50.0f,
-        200.0f, -50.0f, -50.0f,
-        100.0f, -50.0f, -50.0f,
+        100.0f, -50.0f, 50.0f, 0.0f, 0.0f,
+        200.0f, -50.0f, 50.0f, 1.0f, 0.0f,
+        200.0f, -50.0f, -50.0f, 1.0f, 1.0f,
+        100.0f, -50.0f, -50.0f, 0.0f, 1.0f,
 
         // Background
-        -1000.0f, -1000.0f, -500.0f,
-        1000.0f, -1000.0f, -500.0f,
-        1000.0f, 1000.0f, -500.0f,
-        -1000.0f, 1000.0f, -500.0f
+        -1000.0f, -1000.0f, -500.0f, 0.0f, 0.0f,
+        1000.0f, -1000.0f, -500.0f, 1.0f, 0.0f,
+        1000.0f, 1000.0f, -500.0f, 1.0f, 1.0f,
+        -1000.0f, 1000.0f, -500.0f, 0.0f, 1.0f,
     };
 
     unsigned int indices_[IND_ARRAY_SIZE] = {
@@ -80,6 +80,7 @@ private:
     IndexBuffer ibo = IndexBuffer(indices_, IND_ARRAY_SIZE);
     Shader shader = Shader("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Vertex.shader",
                            "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Fragment.shader");
-    Texture texture = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/color.jpg");
+    Texture texture = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/test.jpg");
+    unsigned int textureSlot = 0;
 };
 

@@ -20,8 +20,8 @@ void Landscape::privateInit()
   /* LAYOUT */
   // 3 floats for world position
   layout.Push<float>(3);
-//  // 2 floats for texture position
-//  layout.Push<float>(2);
+  // 2 floats for texture position
+  layout.Push<float>(2);
 
   /* VERTEX ARRAY */
   vao.AddBuffer(vbo, layout);
@@ -35,10 +35,11 @@ void Landscape::privateInit()
 
   /* TEXTURE */
 //  unsigned int textureSlot = 0;
-//  texture.Bind(textureSlot);
-//  shader.SetUniform1i("u_Texture", textureSlot);
+  texture.Bind(textureSlot);
+  shader.SetUniform1i("u_Texture", textureSlot);
 
   /* UNBINDING */
+  texture.Unbind();
   vao.Unbind();
   vbo.Unbind();
   ibo.Unbind();
@@ -51,6 +52,7 @@ void Landscape::privateRender()
     shader.Bind();
     vao.Bind();
     ibo.Bind();
+    texture.Bind(textureSlot);
 
     glm::mat4 projectionMatrix = glm::perspective(glm::radians(proj::PoV), proj::aspectRatio, proj::nearClip, proj::farClip);
     glm::mat4 mvp = projectionMatrix * viewMatrix_ * matrix_;
@@ -59,6 +61,7 @@ void Landscape::privateRender()
 
     GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
 
+    texture.Unbind();
     ibo.Unbind();
     vao.Unbind();
     shader.Unbind();
