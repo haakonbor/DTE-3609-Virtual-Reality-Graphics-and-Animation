@@ -31,7 +31,10 @@ class GameManager : public SceneObject
 		virtual void privateUpdate();
 
 	private:
-    std::shared_ptr<Landscape> ls_;
+    std::shared_ptr<Landscape> ls1_;
+    std::shared_ptr<Landscape> ls2_;
+    std::shared_ptr<Landscape> ls3_;
+    std::shared_ptr<Landscape> ls4_;
     std::shared_ptr<Character> character_;
     std::shared_ptr<Camera> cam_;
     std::shared_ptr<Snow> snow_;

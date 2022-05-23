@@ -8,7 +8,9 @@
 
 Camera::Camera()
 {
-  matrix_ = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -300.0f));
+  auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -300.0f));
+  auto rotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.0f), glm::vec3(0.0f,0.0f,1.0f));
+  matrix_ = translation * rotation;
 }
 
 Camera::~Camera()

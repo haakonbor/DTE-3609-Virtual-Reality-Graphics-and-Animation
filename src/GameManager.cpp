@@ -23,8 +23,14 @@ void GameManager::privateInit()
   // Adding the camera to the scene
   cam_.reset(new Camera());
 
-  ls_.reset(new Landscape());
-  this->addSubObject(ls_);
+  ls1_.reset(new Landscape(glm::vec3(0.0f, -50.0f, 0.0f)));
+  this->addSubObject(ls1_);
+  ls2_.reset(new Landscape(glm::vec3(200.0f, -50.0f, 0.0f)));
+  this->addSubObject(ls2_);
+  ls3_.reset(new Landscape(glm::vec3(400.0f, -50.0f, 0.0f)));
+  this->addSubObject(ls3_);
+  ls4_.reset(new Landscape(glm::vec3(600.0f, -50.0f, 0.0f)));
+  this->addSubObject(ls4_);
 
   character_.reset(new Character());
   this->addSubObject(character_);

@@ -4,8 +4,9 @@
 
 #include "../include/Projection.h"
 
-Landscape::Landscape()
+Landscape::Landscape(glm::vec3 trans)
 {
+    matrix_ = glm::translate(matrix_, trans);
 }
 
 Landscape::~Landscape()
@@ -31,10 +32,9 @@ void Landscape::privateInit()
 
   /* SHADER */
   shader.Bind();
-  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
+//  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
 
   /* TEXTURE */
-//  unsigned int textureSlot = 0;
   texture.Bind(textureSlot);
   shader.SetUniform1i("u_Texture", textureSlot);
 
@@ -44,7 +44,6 @@ void Landscape::privateInit()
   vbo.Unbind();
   ibo.Unbind();
   shader.Unbind();
-
 }
 
 void Landscape::privateRender()
@@ -127,6 +126,11 @@ void Landscape::privateRender()
 
 void Landscape::privateUpdate()
 {
-
+    if (matrix_[3].x < -400) {
+        matrix_ = glm::translate(matrix_, glm::vec3(800.0f, 0.0f, 0.0f));
+    }
+    else {
+        matrix_ = glm::translate(matrix_, glm::vec3(-2.0f, 0.0f, 0.0f));
+    }
 }
 

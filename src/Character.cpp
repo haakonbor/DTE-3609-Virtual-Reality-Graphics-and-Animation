@@ -31,7 +31,6 @@ void Character::privateInit()
 
     setUpHealthbar();
 
-
     GLenum err = glGetError();
     if (err != GL_NO_ERROR)
       std::cout<< "OpenGL error: " << gluErrorString(err) << std::endl;
@@ -349,6 +348,7 @@ void Character::setUpHBTextures()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
+    stbi_set_flip_vertically_on_load(0);
     int width, height, nrChannels;
     std::string filepath = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/HP.jpg";
     unsigned char *data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
@@ -366,9 +366,9 @@ void Character::setUpHBTextures()
 
 void Character::privateUpdate()
 {
-    auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f * speed_, 0.0f, 0.0f));
-    auto rotation = glm::rotate(matrix_, 0.01f, glm::vec3(0.0f,1.0f,0.0f));
-    matrix_ = translation * rotation;
+//    auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f * speed_, 0.0f, 0.0f));
+//    auto rotation = glm::rotate(matrix_, 0.01f, glm::vec3(0.0f,1.0f,0.0f));
+//    matrix_ = translation * rotation;
 
 }
 
