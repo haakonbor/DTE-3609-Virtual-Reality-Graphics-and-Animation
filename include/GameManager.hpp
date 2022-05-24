@@ -3,7 +3,7 @@
 #include <windows.h>
 
 #include "SceneObject.hpp"
-#include "Landscape.hpp"
+#include "Plane.hpp"
 #include "Character.hpp"
 #include "Camera.hpp"
 #include "Snow.hpp"
@@ -31,10 +31,16 @@ class GameManager : public SceneObject
 		virtual void privateUpdate();
 
 	private:
-    std::shared_ptr<Landscape> ls1_;
-    std::shared_ptr<Landscape> ls2_;
-    std::shared_ptr<Landscape> ls3_;
-    std::shared_ptr<Landscape> ls4_;
+    std::shared_ptr<Plane> ls1_;
+    std::shared_ptr<Plane> ls2_;
+    std::shared_ptr<Plane> ls3_;
+    std::shared_ptr<Plane> ls4_;
+    std::shared_ptr<Plane> sbw_;
+    std::shared_ptr<Plane> sbn_;
+    std::shared_ptr<Plane> sbe_;
+    std::shared_ptr<Plane> sbs_;
+    std::shared_ptr<Plane> sbu_;
+    std::shared_ptr<Plane> sbd_;
     std::shared_ptr<Character> character_;
     std::shared_ptr<Camera> cam_;
     std::shared_ptr<Snow> snow_;

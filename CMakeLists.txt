@@ -26,7 +26,7 @@ endif(NOT OPENGL_FOUND)
 
 
 set( INCLUDE
-        include/Landscape.hpp
+        include/Plane.hpp
         include/Camera.hpp
         include/Clock.hpp
         include/FpsCounter.hpp
@@ -50,7 +50,7 @@ set( INCLUDE
         include/stb_image.h
 )
 set( SRCS
-        src/Landscape.cpp
+        src/Plane.cpp
         src/Camera.cpp
         src/GameManager.cpp
         src/SceneObject.cpp

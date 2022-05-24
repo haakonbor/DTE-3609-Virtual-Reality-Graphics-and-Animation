@@ -1,19 +1,34 @@
-#include "../include/Landscape.hpp"
+#include "../include/Plane.hpp"
 #include "../../glm-master/glm/glm.hpp"
 #include "../../glm-master/glm/gtc/type_ptr.hpp"
 
 #include "../include/Projection.h"
 
-Landscape::Landscape(glm::vec3 trans)
+Plane::Plane(glm::vec3 trans, std::string texturePath, glm::vec3 rotationAxis, float rotationAngle, glm::vec3 scale, bool isFixed, bool isTilted)
+    : texture(Texture(texturePath)), fixed(isFixed)
 {
-    matrix_ = glm::translate(matrix_, trans);
+    auto translation = glm::translate(glm::mat4(1.0f), trans);
+
+    auto rotation = glm::mat4(1.0);
+
+    if (rotationAngle != 0.0f) {
+        rotation *= glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
+    }
+    if (isTilted) {
+//        rotation *= glm::rotate(glm::mat4(1.0f), glm::radians(-30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        rotation *= glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    }
+
+    auto scaling = glm::scale(glm::mat4(1.0f), scale);
+
+    matrix_ = translation * rotation * scaling;
 }
 
-Landscape::~Landscape()
+Plane::~Plane()
 {
 }
 
-void Landscape::privateInit()
+void Plane::privateInit()
 {
   /* VERTEX BUFFER */
   // Is set up in initialization of object attribute
@@ -46,7 +61,7 @@ void Landscape::privateInit()
   shader.Unbind();
 }
 
-void Landscape::privateRender()
+void Plane::privateRender()
 {
     shader.Bind();
     vao.Bind();
@@ -124,10 +139,13 @@ void Landscape::privateRender()
 
 }
 
-void Landscape::privateUpdate()
+void Plane::privateUpdate()
 {
+    if (fixed)
+        return;
+
     if (matrix_[3].x < -400) {
-        matrix_ = glm::translate(matrix_, glm::vec3(800.0f, 0.0f, 0.0f));
+        matrix_ = glm::translate(matrix_, glm::vec3(798.0f, 0.0f, 0.0f));
     }
     else {
         matrix_ = glm::translate(matrix_, glm::vec3(-2.0f, 0.0f, 0.0f));

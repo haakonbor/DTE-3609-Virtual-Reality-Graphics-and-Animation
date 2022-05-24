@@ -18,11 +18,12 @@
 #define POS_ARRAY_SIZE 4 * (3 + 2)
 #define IND_ARRAY_SIZE 4
 
-class Landscape : public SceneObject
+class Plane : public SceneObject
 {
 public:
-    Landscape(glm::vec3 trans);
-    ~Landscape();
+    Plane(glm::vec3 trans, std::string texturePath, glm::vec3 rotationAxis = glm::vec3(0.0f, 0.0f, 0.0f),
+          float rotationAngle = 0.0f, glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f), bool isFixed = false, bool isTilted = false);
+    ~Plane();
 
 protected:
     virtual void privateInit();
@@ -80,7 +81,8 @@ private:
     IndexBuffer ibo = IndexBuffer(indices_, IND_ARRAY_SIZE);
     Shader shader = Shader("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Vertex.shader",
                            "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Fragment.shader");
-    Texture texture = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/road.jpg");
+    Texture texture; // = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/road.jpg");
     unsigned int textureSlot = 0;
+    bool fixed;
 };
 

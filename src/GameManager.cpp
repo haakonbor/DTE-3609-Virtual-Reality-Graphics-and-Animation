@@ -23,14 +23,38 @@ void GameManager::privateInit()
   // Adding the camera to the scene
   cam_.reset(new Camera());
 
-  ls1_.reset(new Landscape(glm::vec3(0.0f, -50.0f, 0.0f)));
+  auto landscapeTexturePath = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/road.jpg";
+
+  ls1_.reset(new Plane(glm::vec3(0.0f, -50.0f, 0.0f), landscapeTexturePath));
   this->addSubObject(ls1_);
-  ls2_.reset(new Landscape(glm::vec3(200.0f, -50.0f, 0.0f)));
+  ls2_.reset(new Plane(glm::vec3(200.0f, -50.0f, 0.0f), landscapeTexturePath));
   this->addSubObject(ls2_);
-  ls3_.reset(new Landscape(glm::vec3(400.0f, -50.0f, 0.0f)));
+  ls3_.reset(new Plane(glm::vec3(400.0f, -50.0f, 0.0f), landscapeTexturePath));
   this->addSubObject(ls3_);
-  ls4_.reset(new Landscape(glm::vec3(600.0f, -50.0f, 0.0f)));
+  ls4_.reset(new Plane(glm::vec3(600.0f, -50.0f, 0.0f),landscapeTexturePath));
   this->addSubObject(ls4_);
+
+  float skyboxSize = 10000.0f;
+  std::string skyboxTexturePathPrefix = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/skybox_";
+
+  sbw_.reset(new Plane(glm::vec3(-skyboxSize / 2, 0, 0.0f), skyboxTexturePathPrefix + "west.bmp", glm::vec3(0.0f, 1.0f, 0.0f),
+                       90.0f, glm::vec3(skyboxSize / 200, skyboxSize / 200, skyboxSize / 200), true, true));
+  this->addSubObject(sbw_);
+  sbn_.reset(new Plane(glm::vec3(0.0f, 0.0f, -skyboxSize / 2), skyboxTexturePathPrefix + "north.bmp", glm::vec3(0.0f, 0.0f, 0.0f),
+                       0.0f, glm::vec3(skyboxSize / 200, skyboxSize / 200, skyboxSize / 200), true, true));
+  this->addSubObject(sbn_);
+  sbe_.reset(new Plane(glm::vec3(skyboxSize / 2, 0.0f, 0.0f), skyboxTexturePathPrefix + "east.bmp", glm::vec3(0.0f, 1.0f, 0.0f),
+                       270.0f, glm::vec3(skyboxSize / 200, skyboxSize / 200, skyboxSize / 200), true, true));
+  this->addSubObject(sbe_);
+  sbs_.reset(new Plane(glm::vec3(0.0f, 0.0f, skyboxSize / 2),skyboxTexturePathPrefix + "south.bmp", glm::vec3(0.0f, 1.0f, 0.0f),
+                       180.0f, glm::vec3(skyboxSize / 200, skyboxSize / 200, skyboxSize / 200), true, true));
+  this->addSubObject(sbs_);
+  sbu_.reset(new Plane(glm::vec3(0.0f, skyboxSize / 2, 0.0f), skyboxTexturePathPrefix + "up.bmp", glm::vec3(1.0f, 0.0f, 0.0f),
+                       90.0f, glm::vec3(skyboxSize / 200, skyboxSize / 200, skyboxSize / 200), true, true));
+  this->addSubObject(sbu_);
+  sbd_.reset(new Plane(glm::vec3(0.0f, -skyboxSize / 2, 0.0f), skyboxTexturePathPrefix + "down.bmp", glm::vec3(0.0f, 0.0f, 0.0f),
+                       0.0f, glm::vec3(skyboxSize / 200, skyboxSize / 200, skyboxSize / 200), true, false));
+  this->addSubObject(sbd_);
 
   character_.reset(new Character());
   this->addSubObject(character_);
