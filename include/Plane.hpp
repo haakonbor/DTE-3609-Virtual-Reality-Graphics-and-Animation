@@ -84,5 +84,6 @@ private:
     Texture texture; // = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/road.jpg");
     unsigned int textureSlot = 0;
     bool fixed;
+    float scaling;
 };
 

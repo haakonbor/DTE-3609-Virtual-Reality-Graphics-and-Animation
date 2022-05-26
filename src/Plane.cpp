@@ -5,7 +5,7 @@
 #include "../include/Projection.h"
 
 Plane::Plane(glm::vec3 trans, std::string texturePath, glm::vec3 rotationAxis, float rotationAngle, glm::vec3 scale, bool isFixed, bool isTilted)
-    : texture(Texture(texturePath)), fixed(isFixed)
+    : texture(Texture(texturePath)), fixed(isFixed), scaling(scale[0])
 {
     auto translation = glm::translate(glm::mat4(1.0f), trans);
 
@@ -144,11 +144,11 @@ void Plane::privateUpdate()
     if (fixed)
         return;
 
-    if (matrix_[3].x < -400) {
-        matrix_ = glm::translate(matrix_, glm::vec3(798.0f, 0.0f, 0.0f));
+    if (matrix_[3].x < - 1.5 * 200 * scaling) {
+        matrix_ = glm::translate(matrix_, glm::vec3(1.5 * 200 * scaling - 2, 0.0f, 0.0f));
     }
     else {
-        matrix_ = glm::translate(matrix_, glm::vec3(-2.0f, 0.0f, 0.0f));
+        matrix_ = glm::translate(matrix_, glm::vec3(-1.0f, 0.0f, 0.0f));
     }
 }
 

@@ -1,5 +1,7 @@
 #include "../include/GameManager.hpp"
 
+#include <math.h>
+
 GameManager::GameManager()
 {
 }
@@ -23,17 +25,29 @@ void GameManager::privateInit()
   // Adding the camera to the scene
   cam_.reset(new Camera());
 
+  // Landscape
   auto landscapeTexturePath = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/road.jpg";
+  auto landscapeSize = 200.0f;
+  auto landscapeScaling = 3.0f;
+  auto landscapeRealSize = landscapeSize * landscapeScaling;
 
-  ls1_.reset(new Plane(glm::vec3(0.0f, -50.0f, 0.0f), landscapeTexturePath));
+  ls1_.reset(new Plane(glm::vec3(0.0f, -50.0f, 0.0f), landscapeTexturePath, glm::vec3(0.0f, 0.0f, 1.0f),
+                       30.0f, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
   this->addSubObject(ls1_);
-  ls2_.reset(new Plane(glm::vec3(200.0f, -50.0f, 0.0f), landscapeTexturePath));
+  ls2_.reset(new Plane(glm::vec3(landscapeRealSize * cos(glm::radians(30.0f)), -50.0f + landscapeRealSize * sin(glm::radians(30.0f)), 0.0f), landscapeTexturePath, glm::vec3(0.0f, 0.0f, 1.0f),
+                       30.0f, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
   this->addSubObject(ls2_);
-  ls3_.reset(new Plane(glm::vec3(400.0f, -50.0f, 0.0f), landscapeTexturePath));
+  ls3_.reset(new Plane(glm::vec3(2 * landscapeRealSize * cos(glm::radians(30.0f)), -50.0f + 2 * landscapeRealSize * sin(glm::radians(30.0f)), 0.0f), landscapeTexturePath, glm::vec3(0.0f, 0.0f, 1.0f),
+                       30.0f,glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
   this->addSubObject(ls3_);
-  ls4_.reset(new Plane(glm::vec3(600.0f, -50.0f, 0.0f),landscapeTexturePath));
+  ls4_.reset(new Plane(glm::vec3(3 * landscapeRealSize * cos(glm::radians(30.0f)), -50.0f + 3 * landscapeRealSize * sin(glm::radians(30.0f)), 0.0f),landscapeTexturePath, glm::vec3(0.0f, 0.0f, 1.0f),
+                       30.0f, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
   this->addSubObject(ls4_);
+  ls5_.reset(new Plane(glm::vec3(4 * landscapeRealSize * cos(glm::radians(30.0f)), -50.0f + 4 * landscapeRealSize * sin(glm::radians(30.0f)), 0.0f),landscapeTexturePath, glm::vec3(0.0f, 0.0f, 1.0f),
+                       30.0f, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
+  this->addSubObject(ls5_);
 
+  // Skybox
   float skyboxSize = 10000.0f;
   std::string skyboxTexturePathPrefix = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/skybox_";
 
@@ -56,15 +70,19 @@ void GameManager::privateInit()
                        0.0f, glm::vec3(skyboxSize / 200, skyboxSize / 200, skyboxSize / 200), true, false));
   this->addSubObject(sbd_);
 
+  // Character
   character_.reset(new Character());
   this->addSubObject(character_);
 
+  // Snow
   snow_.reset(new Snow());
   this->addSubObject(snow_);
 
+  // Text
   text_.reset(new Text());
   this->addSubObject(text_);
 
+  // Minimap
   minimap_.reset(new Minimap());
   this->addSubObject(minimap_);
 

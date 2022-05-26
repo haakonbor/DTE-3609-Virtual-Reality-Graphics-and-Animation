@@ -35,6 +35,8 @@ class GameManager : public SceneObject
     std::shared_ptr<Plane> ls2_;
     std::shared_ptr<Plane> ls3_;
     std::shared_ptr<Plane> ls4_;
+    std::shared_ptr<Plane> ls5_;
+
     std::shared_ptr<Plane> sbw_;
     std::shared_ptr<Plane> sbn_;
     std::shared_ptr<Plane> sbe_;
