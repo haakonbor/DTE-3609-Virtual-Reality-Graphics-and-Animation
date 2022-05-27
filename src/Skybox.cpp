@@ -1,30 +1,22 @@
-#include "../include/Plane.hpp"
+#include "../include/Skybox.h"
 #include "../../glm-master/glm/glm.hpp"
 #include "../../glm-master/glm/gtc/type_ptr.hpp"
 
+#include "../include/Projection.h"
 
-
-Plane::Plane(glm::vec3 trans, glm::vec3 rotationAxis, float rotationAngle, glm::vec3 scale)
-    : scaling(scale[0])
+Skybox::Skybox()
 {
-    auto translation = glm::translate(glm::mat4(1.0f), trans);
+    auto scale = 5000.0f;
+    auto scaling = glm::scale(glm::mat4(1.0f), glm::vec3(scale, scale, scale));
 
-    auto rotation = glm::mat4(1.0);
-
-    if (rotationAngle != 0.0f) {
-        rotation *= glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
-    }
-
-    auto scaling = glm::scale(glm::mat4(1.0f), scale);
-
-    matrix_ = translation * rotation * scaling;
+    matrix_ = scaling;
 }
 
-Plane::~Plane()
+Skybox::~Skybox()
 {
 }
 
-void Plane::privateInit()
+void Skybox::privateInit()
 {
   /* VERTEX BUFFER */
   // Is set up in initialization of object attribute
@@ -33,7 +25,7 @@ void Plane::privateInit()
   // 3 floats for world position
   layout.Push<float>(3);
   // 2 floats for texture position
-  layout.Push<float>(2);
+//  layout.Push<float>(2);
 
   /* VERTEX ARRAY */
   vao.AddBuffer(vbo, layout);
@@ -46,31 +38,31 @@ void Plane::privateInit()
 //  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
 
   /* TEXTURE */
-  texture.Bind(textureSlot);
+  texture.BindCubemap(textureSlot);
   shader.SetUniform1i("u_Texture", textureSlot);
 
   /* UNBINDING */
-  texture.Unbind();
+  texture.UnbindCubemap();
   vao.Unbind();
   vbo.Unbind();
   ibo.Unbind();
   shader.Unbind();
 }
 
-void Plane::privateRender()
+void Skybox::privateRender()
 {
     shader.Bind();
     vao.Bind();
     ibo.Bind();
-    texture.Bind(textureSlot);
+    texture.BindCubemap(textureSlot);
 
     shader.SetUniformMat4f("u_ViewMatrix", viewMatrix_);
     shader.SetUniformMat4f("u_ProjectionMatrix", projMatrix_);
     shader.SetUniformMat4f("u_ModelMatrix", matrix_);
 
-    GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
+    GLCall(glDrawElements(GL_TRIANGLES, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
 
-    texture.Unbind();
+    texture.UnbindCubemap();
     ibo.Unbind();
     vao.Unbind();
     shader.Unbind();
@@ -134,13 +126,7 @@ void Plane::privateRender()
 
 }
 
-void Plane::privateUpdate()
+void Skybox::privateUpdate()
 {
-    if (matrix_[3].x < - 1.5 * 200 * scaling) {
-        matrix_ = glm::translate(matrix_, glm::vec3(1.5 * 200 * scaling - 2, 0.0f, 0.0f));
-    }
-    else {
-        matrix_ = glm::translate(matrix_, glm::vec3(-1.0f, 0.0f, 0.0f));
-    }
 }
 

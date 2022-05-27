@@ -45,6 +45,7 @@ set( INCLUDE
         include/VertexBufferLayout.h
         include/Texture.h
         include/Projection.h
+        include/Skybox.h
 
         include/GLErrorHandler.h
         include/stb_image.h
@@ -63,6 +64,7 @@ set( SRCS
         src/VertexArray.cpp
         src/VertexBuffer.cpp
         src/Texture.cpp
+        src/Skybox.cpp
 
         src/GLErrorHandler.cpp
         src/stb_image.cpp

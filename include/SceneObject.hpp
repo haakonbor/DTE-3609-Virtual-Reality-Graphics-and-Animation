@@ -3,6 +3,8 @@
 #include <memory>
 #include <vector>
 #include "../../glm-master/glm/glm.hpp"
+#include "../../glm-master/glm/gtc/type_ptr.hpp"
+#include "../include/Projection.h"
 
 // The SceneObject class is the parent of all objects in the scene graph.
 // To make an object to use in the scene graph, inherit this class and
@@ -71,6 +73,9 @@ class SceneObject
 
   // View matrix
   glm::mat4 viewMatrix_;
+
+  // Projection matrix
+  glm::mat4 projMatrix_ = glm::perspective(glm::radians(proj::PoV), proj::aspectRatio, proj::nearClip, proj::farClip);
 
  private:
   // List of all SceneObjects that belong to the current object.
