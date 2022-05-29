@@ -15,7 +15,7 @@
 #include "../../glm-master/glm/glm.hpp"
 
 // 4 points with 3D position and 2D texture position
-#define LS_POS_ARRAY_SIZE 4 * (3 + 2)
+#define LS_POS_ARRAY_SIZE 4 * (3 + 3 + 2)
 #define LS_IND_ARRAY_SIZE 4
 
 class Plane : public SceneObject
@@ -40,10 +40,10 @@ private:
 
     float positions_[LS_POS_ARRAY_SIZE] = {
         // Left plane
-        -100.0f,0.0f, 100.0f, 0.0f, 0.0f,
-        100.0f, 0.0f, 100.0f, 1.0f, 0.0f,
-        100.0f, 0.0f, -100.0f, 1.0f, 1.0f,
-        -100.0f,0.0f, -100.0f, 0.0f, 1.0f,
+        -100.0f,0.0f, 100.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+        100.0f, 0.0f, 100.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+        100.0f, 0.0f, -100.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        -100.0f,0.0f, -100.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
     };
 
     unsigned int indices_[LS_IND_ARRAY_SIZE] = {

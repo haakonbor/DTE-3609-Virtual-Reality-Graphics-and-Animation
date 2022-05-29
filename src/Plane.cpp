@@ -32,6 +32,8 @@ void Plane::privateInit()
   /* LAYOUT */
   // 3 floats for world position
   layout.Push<float>(3);
+  // 3 floats for normals
+  layout.Push<float>(3);
   // 2 floats for texture position
   layout.Push<float>(2);
 
@@ -48,6 +50,8 @@ void Plane::privateInit()
   /* TEXTURE */
   texture.Bind(textureSlot);
   shader.SetUniform1i("u_Texture", textureSlot);
+  shader.SetUniform1i("u_DiffuseMaterial", 0);
+//  shader.SetUniform4f("u_LightPosition", 50.0f, 300.0f, 0.0f, 1.0f);
 
   /* UNBINDING */
   texture.Unbind();
