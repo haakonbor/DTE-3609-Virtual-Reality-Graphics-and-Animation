@@ -1,22 +1,24 @@
-#include "../include/Skybox.h"
+#include "../include/Obstacle.h"
 #include "../../glm-master/glm/glm.hpp"
 #include "../../glm-master/glm/gtc/type_ptr.hpp"
 
-#include "../include/Projection.h"
 
-Skybox::Skybox()
+
+Obstacle::Obstacle(glm::vec3 trans, glm::vec3 rotationAxis, float rotationAngle)
+    :position_(trans)
 {
-    auto scale = 5000.0f;
-    auto scaling = glm::scale(glm::mat4(1.0f), glm::vec3(scale, scale, scale));
+    translation_ = glm::translate(glm::mat4(1.0f), trans);
 
-    matrix_ = scaling;
+    rotation_ = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
+
+    matrix_ = translation_ * rotation_ * scaling_;
 }
 
-Skybox::~Skybox()
+Obstacle::~Obstacle()
 {
 }
 
-void Skybox::privateInit()
+void Obstacle::privateInit()
 {
   /* VERTEX BUFFER */
   // Is set up in initialization of object attribute
@@ -49,7 +51,7 @@ void Skybox::privateInit()
   shader.Unbind();
 }
 
-void Skybox::privateRender()
+void Obstacle::privateRender()
 {
     shader.Bind();
     vao.Bind();
@@ -60,7 +62,7 @@ void Skybox::privateRender()
     shader.SetUniformMat4f("u_ProjectionMatrix", projMatrix_);
     shader.SetUniformMat4f("u_ModelMatrix", matrix_);
 
-    GLCall(glDrawElements(GL_TRIANGLES, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
+    GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
 
     texture.UnbindCubemap();
     ibo.Unbind();
@@ -68,7 +70,24 @@ void Skybox::privateRender()
     shader.Unbind();
 }
 
-void Skybox::privateUpdate()
+void Obstacle::privateUpdate()
 {
+    glm::vec3 trans;
+    float speed = -3.0f;
+    float resetDistance = 2000.0f;
+
+    if (position_.x < - 1.5 * 200 * 3) {
+        trans = glm::vec3(resetDistance, tan(glm::radians(30.0f)) * resetDistance, 0.0f);
+    }
+    else {
+        trans = glm::vec3(speed, tan(glm::radians(30.0f)) * speed, 0.0f);
+    }
+
+    rotation_ = glm::rotate(rotation_, 0.05f, glm::vec3(0.0f, 0.0f, 1.0f));
+
+    translation_ = glm::translate(translation_, trans);
+    matrix_ = translation_ * rotation_ * scaling_;
+
+    position_ += trans;
 }
 

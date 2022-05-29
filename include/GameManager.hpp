@@ -10,6 +10,7 @@
 #include "Text.hpp"
 #include "Minimap.hpp"
 #include "Skybox.h"
+#include "Obstacle.h"
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -32,25 +33,17 @@ class GameManager : public SceneObject
 		virtual void privateUpdate();
 
 	private:
-    std::shared_ptr<Plane> ls1_;
-    std::shared_ptr<Plane> ls2_;
-    std::shared_ptr<Plane> ls3_;
-    std::shared_ptr<Plane> ls4_;
-    std::shared_ptr<Plane> ls5_;
-
-//    std::shared_ptr<Plane> sbw_;
-//    std::shared_ptr<Plane> sbn_;
-//    std::shared_ptr<Plane> sbe_;
-//    std::shared_ptr<Plane> sbs_;
-//    std::shared_ptr<Plane> sbu_;
-//    std::shared_ptr<Plane> sbd_;
-
+    std::vector<std::shared_ptr<Plane>> landscape_;
     std::shared_ptr<Skybox> sb_;
-
     std::shared_ptr<Character> character_;
+    std::vector<std::shared_ptr<Obstacle>> obstacles_;
     std::shared_ptr<Camera> cam_;
     std::shared_ptr<Snow> snow_;
     std::shared_ptr<Text> text_;
     std::shared_ptr<Minimap> minimap_;
+
+    void checkCollisions();
+    void handleCollision(std::shared_ptr<Obstacle> obs);
+    void resetCharacterAfterCollision();
 };
 

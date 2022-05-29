@@ -15,7 +15,6 @@
 #include "SceneObject.hpp"
 #include "../../glm-master/glm/glm.hpp"
 
-// 4 points with 3D position and 2D texture position
 #define SB_POS_ARRAY_SIZE 6 * 6 * 3
 #define SB_IND_ARRAY_SIZE 6 * 6
 

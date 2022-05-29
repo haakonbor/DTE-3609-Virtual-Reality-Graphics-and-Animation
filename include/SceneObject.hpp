@@ -71,6 +71,10 @@ class SceneObject
   // Relative to the object's parent. Defaults to the identity matrix.
   glm::mat4 matrix_;
 
+  glm::mat4 translation_ = glm::mat4(1.0f);
+  glm::mat4 rotation_ = glm::mat4(1.0f);
+  glm::mat4 scaling_= glm::mat4(1.0f);
+
   // View matrix
   glm::mat4 viewMatrix_;
 

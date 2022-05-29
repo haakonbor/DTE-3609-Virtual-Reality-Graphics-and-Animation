@@ -1,4 +1,3 @@
-
 #include "../include/Character.hpp"
 #include "../../glm-master/glm/glm.hpp"
 #include "../../glm-master/glm/gtc/matrix_transform.hpp"
@@ -8,14 +7,15 @@
 #include <iostream>
 #include <fstream>
 
-Character::Character()
+Character::Character(glm::vec3 trans)
+    :position_(trans)
 {
     list_id_ = glGenLists(1);
 
-    auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 30.0f, 0.0f));
-    auto rotation = glm::rotate(glm::mat4(1.0f), glm::radians(30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    translation_ = glm::translate(glm::mat4(1.0f), trans);
+    rotation_ = glm::rotate(glm::mat4(1.0f), glm::radians(30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
-    matrix_ = translation * rotation;
+    matrix_ = translation_ * rotation_ * scaling_;
 }
 
 Character::~Character()
@@ -24,8 +24,6 @@ Character::~Character()
 
 void Character::privateInit()
 {   
-    speed_ = 1.0f;
-
     setUpVertices();
 
     createNormalLineList();
@@ -86,7 +84,7 @@ void Character::privateRender()
 
 void Character::renderCube()
 {
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(color_[0], color_[1], color_[2]);
     glEnableClientState(GL_NORMAL_ARRAY);
     glNormalPointer(GL_FLOAT, 0, normalArray_.data());
     glDisableClientState(GL_NORMAL_ARRAY);
@@ -379,11 +377,21 @@ void Character::privateUpdate()
 
 void Character::increaseSpeed()
 {
-    speed_ = speed_ + 0.2f;
+    if (position_.z > -150.0f) {
+        auto const trans = glm::vec3(0.0f, 0.0f, -5.0f);
+        translation_ = glm::translate(translation_, trans);
+        matrix_ = translation_ * rotation_ * scaling_;
+        position_ += trans;
+    }
 }
 
 void Character::decreaseSpeed()
 {
-    speed_ = speed_ - 0.2f;
+    if (position_.z < 150.0f) {
+        auto const trans = glm::vec3(0.0f, 0.0f, 5.0f);
+        translation_ = glm::translate(translation_, trans);
+        matrix_ = translation_ * rotation_ * scaling_;
+        position_ += trans;
+    }
 }
 

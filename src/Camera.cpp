@@ -35,36 +35,36 @@ void Camera::privateUpdate()
 
 void Camera::moveRight()
 {
-  matrix_ = glm::translate(matrix_, glm::vec3(-5.0f, 0.0f, 0.0f));
+  matrix_ = glm::translate(matrix_, glm::vec3(-6.0f, 0.0f, 0.0f));
 }
 void Camera::moveLeft()
 {
-  matrix_ = glm::translate(matrix_, glm::vec3(5.0f, 0.0f, 0.0f));
+  matrix_ = glm::translate(matrix_, glm::vec3(6.0f, 0.0f, 0.0f));
 }
 void Camera::moveUp()
 {
-  matrix_ = glm::translate(matrix_, glm::vec3(0.0f, -5.0f, 0.0f));
+  matrix_ = glm::translate(matrix_, glm::vec3(0.0f, -6.0f, 0.0f));
 }
 void Camera::moveDown()
 {
-  matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 5.0f, 0.0f));
+  matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 6.0f, 0.0f));
 }
 void Camera::moveForward()
 {
-  matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, 5.0f));
+  matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, 6.0f));
 }
 void Camera::moveBackward()
 {
-  matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -5.0f));
+  matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -6.0f));
 }
 
 void Camera::rotateLeft()
 {
-    matrix_ = glm::rotate(matrix_, .01f, glm::vec3(0.0f, 1.0f, 0.0f));
+    matrix_ = glm::rotate(matrix_, .02f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void Camera::rotateRight()
 {
-    matrix_ = glm::rotate(matrix_, -.01f, glm::vec3(0.0f, 1.0f, 0.0f));
+    matrix_ = glm::rotate(matrix_, -.02f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 

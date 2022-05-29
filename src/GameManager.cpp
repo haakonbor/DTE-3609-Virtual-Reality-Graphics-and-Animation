@@ -14,6 +14,8 @@ void GameManager::privateInit()
 {
   // Set default OpenGL states
   glEnable(GL_CULL_FACE);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 //  glEnable(GL_FOG);
 //  glFogi(GL_FOG_MODE, GL_LINEAR);
@@ -26,6 +28,7 @@ void GameManager::privateInit()
   cam_.reset(new Camera());
 
   // Landscape
+  const auto landscapeSegments = 5;
   const auto landscapeSize = 200.0f;
   const auto landscapeScaling = 3.0f;
   const auto landscapeRealSize = landscapeSize * landscapeScaling;
@@ -34,29 +37,34 @@ void GameManager::privateInit()
   const auto landscapeX = landscapeRealSize * cos(glm::radians(landscapeRotationDegree));
   const auto landscapeY = landscapeRealSize * sin(glm::radians(landscapeRotationDegree));
 
-  ls1_.reset(new Plane(glm::vec3(0.0f, -50.0f, 0.0f), landscapeRotationAxis,
-                       landscapeRotationDegree, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
-  this->addSubObject(ls1_);
-  ls2_.reset(new Plane(glm::vec3(landscapeX, -50.0f + landscapeY, 0.0f), landscapeRotationAxis,
-                       landscapeRotationDegree, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
-  this->addSubObject(ls2_);
-  ls3_.reset(new Plane(glm::vec3(2 * landscapeX, -50.0f + 2 * landscapeY, 0.0f), landscapeRotationAxis,
-                       landscapeRotationDegree, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
-  this->addSubObject(ls3_);
-  ls4_.reset(new Plane(glm::vec3(3 * landscapeX, -50.0f + 3 * landscapeY, 0.0f), landscapeRotationAxis,
-                       landscapeRotationDegree, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
-  this->addSubObject(ls4_);
-  ls5_.reset(new Plane(glm::vec3(4 * landscapeX, -50.0f + 4 * landscapeY, 0.0f), landscapeRotationAxis,
-                       landscapeRotationDegree, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
-  this->addSubObject(ls5_);
+  for (unsigned int i = 0; i < landscapeSegments; i++) {
+      std::shared_ptr<Plane> current_segment;
+        current_segment.reset(new Plane(glm::vec3(0.0f + landscapeX * i, -50.0f + landscapeY * i, 0.0f), landscapeRotationAxis,
+                             landscapeRotationDegree, glm::vec3(landscapeScaling, landscapeScaling, landscapeScaling)));
+        this->addSubObject(current_segment);
+        landscape_.push_back(current_segment);
+  }
 
   // Skybox
   sb_.reset(new Skybox());
   this->addSubObject(sb_);
 
   // Character
-  character_.reset(new Character());
+  character_.reset(new Character(glm::vec3(0.0f, 30.0f, 0.0f)));
   this->addSubObject(character_);
+
+  // Obstacles
+  const auto obstacleNumber = 1;
+
+  for (unsigned int i = 0; i < obstacleNumber; i++) {
+      std::shared_ptr<Obstacle> obstacle;
+        obstacle.reset(new Obstacle(glm::vec3(400 + landscapeX * i, 260 + landscapeY * i, 0.0f), landscapeRotationAxis,
+                             landscapeRotationDegree));
+        this->addSubObject(obstacle);
+        obstacles_.push_back(obstacle);
+
+  }
+
 
   // Snow
   snow_.reset(new Snow());
@@ -79,10 +87,51 @@ void GameManager::privateRender()
 
 void GameManager::privateUpdate()
 {
+  checkCollisions();
   // Instead of adding alle objects in the scene as subobject to the camera they are added as subobjects
   // to the game manager. Therefore, we set the game manager matrix equal to the camera matrix. 
   this->matrix_ = cam_->getMatrix();
 }
+
+void GameManager::checkCollisions()
+{
+    for (auto obs : obstacles_) {
+        const auto obsPos = obs->getPosition();
+        const auto obsSize = obs->getSize();
+        const auto charPos = character_->getPosition();
+        const auto charSize = character_->getSize();
+//        std::cout << "OBSTACLE: " << obsPos.x << " " << obsPos.y << std::endl;
+//        std::cout << "CHARACTER: " << charPos.x << " " << charPos.y << std::endl;
+
+        const bool collisionX = charPos.x - charSize <= obsPos.x + obsSize && charPos.x + charSize >= obsPos.x - obsSize;
+        const bool collisionY = charPos.y - charSize <= obsPos.y + obsSize && charPos.y + charSize >= obsPos.y - obsSize;
+        const bool collisionZ = charPos.z - charSize <= obsPos.z + obsSize && charPos.z + charSize >= obsPos.z - obsSize;
+
+        if (collisionX && collisionY && collisionZ) {
+            if (character_->getState() != characterStates::colliding) {
+                handleCollision(obs);
+            }
+            return;
+        }
+    }
+
+    if (character_->getState() == characterStates::colliding) {
+        resetCharacterAfterCollision();
+    }
+}
+
+void GameManager::handleCollision(std::shared_ptr<Obstacle> obs)
+{
+     character_->setColor(1.0f, 1.0f, 1.0f);
+     character_->setState(characterStates::colliding);
+}
+
+void GameManager::resetCharacterAfterCollision()
+{
+     character_->setColor(1.0f, 0.0f, 0.0f);
+     character_->setState(characterStates::normal);
+}
+
 
 std::shared_ptr<Camera> GameManager::getCam()
 {
