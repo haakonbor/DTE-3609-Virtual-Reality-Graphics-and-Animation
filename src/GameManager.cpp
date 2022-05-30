@@ -28,7 +28,7 @@ void GameManager::privateInit()
   cam_.reset(new Camera());
 
   // Landscape
-  const auto landscapeSegments = 5;
+  const auto landscapeSegments = 12;
   const auto landscapeSize = 200.0f;
   const auto landscapeScaling = 3.0f;
   const auto landscapeRealSize = landscapeSize * landscapeScaling;
@@ -50,19 +50,21 @@ void GameManager::privateInit()
   this->addSubObject(sb_);
 
   // Character
-  character_.reset(new Character(glm::vec3(0.0f, 30.0f, 0.0f)));
+  character_.reset(new Character(glm::vec3(0.0f, 10.0f, 0.0f)));
   this->addSubObject(character_);
 
   // Obstacles
-  const auto obstacleNumber = 1;
+  const auto obstacleNumber = 6;
+  const auto obstacleStartPosX = 1000.0f;
+  const auto obstacleSpacing = 200.0f;
+  srand(time(0));
 
   for (unsigned int i = 0; i < obstacleNumber; i++) {
       std::shared_ptr<Obstacle> obstacle;
-        obstacle.reset(new Obstacle(glm::vec3(400 + landscapeX * i, 260 + landscapeY * i, 0.0f), landscapeRotationAxis,
-                             landscapeRotationDegree));
+        obstacle.reset(new Obstacle(glm::vec3(obstacleStartPosX + obstacleSpacing * i + landscapeX * i, tan(glm::radians(landscapeRotationDegree)) * (obstacleStartPosX + obstacleSpacing * i) + 10.0f + landscapeY * i, - 150.0f + (i % 3) * 150.0f),
+                                    landscapeRotationAxis, landscapeRotationDegree));
         this->addSubObject(obstacle);
         obstacles_.push_back(obstacle);
-
   }
 
 
@@ -70,14 +72,13 @@ void GameManager::privateInit()
   snow_.reset(new Snow());
   this->addSubObject(snow_);
 
-  // Text
-  text_.reset(new Text());
-  this->addSubObject(text_);
-
   // Minimap
   minimap_.reset(new Minimap());
   this->addSubObject(minimap_);
 
+  // Text
+  text_.reset(new Text("Score: "));
+  this->addSubObject(text_);
 }
 
 void GameManager::privateRender()
@@ -124,12 +125,27 @@ void GameManager::handleCollision(std::shared_ptr<Obstacle> obs)
 {
      character_->setColor(1.0f, 1.0f, 1.0f);
      character_->setState(characterStates::colliding);
+     character_->reduceLife();
 }
 
 void GameManager::resetCharacterAfterCollision()
 {
-     character_->setColor(1.0f, 0.0f, 0.0f);
-     character_->setState(characterStates::normal);
+    auto life = character_->getCurrentLife();
+
+    if (life > 0.5f) {
+        character_->setColor(0.0f, 1.0f, 0.0f);
+    }
+    else if (life > 0.25f) {
+        character_->setColor(1.0f, 1.0f, 0.0f);
+    }
+    else if (life > 0.0f){
+        character_->setColor(1.0f, 0.0f, 0.0f);
+    }
+    else {
+        exit(0);
+    }
+
+    character_->setState(characterStates::normal);
 }
 
 

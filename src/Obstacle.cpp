@@ -73,21 +73,23 @@ void Obstacle::privateRender()
 void Obstacle::privateUpdate()
 {
     glm::vec3 trans;
-    float speed = -3.0f;
-    float resetDistance = 2000.0f;
+    float resetDistance = 4000.0f;
 
     if (position_.x < - 1.5 * 200 * 3) {
-        trans = glm::vec3(resetDistance, tan(glm::radians(30.0f)) * resetDistance, 0.0f);
+
+        trans = glm::vec3(resetDistance, tan(glm::radians(30.0f)) * resetDistance, -150.0f + float(rand() % 300));
+        translation_ = glm::translate(glm::mat4(1.0f), trans);
+        position_ = trans;
     }
     else {
-        trans = glm::vec3(speed, tan(glm::radians(30.0f)) * speed, 0.0f);
+        trans = glm::vec3(speed_, tan(glm::radians(30.0f)) * speed_, 0.0f);
+        translation_ = glm::translate(translation_, trans);
+        position_ += trans;
     }
 
-    rotation_ = glm::rotate(rotation_, 0.05f, glm::vec3(0.0f, 0.0f, 1.0f));
-
-    translation_ = glm::translate(translation_, trans);
+    rotation_ = glm::rotate(rotation_, 0.05f - speed_ / 1000, glm::vec3(0.0f, 0.0f, 1.0f));
     matrix_ = translation_ * rotation_ * scaling_;
 
-    position_ += trans;
+    speed_ -= 0.001f;
 }
 

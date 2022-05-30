@@ -29,18 +29,16 @@ void Minimap::privateInit() {
 }
 
 void Minimap::privateRender() {
-//    glMatrixMode(GL_MODELVIEW);
-
-    // render to texture
+   // render to texture
     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, g_fbo);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//    glLoadIdentity();
+//    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
 
-    // place camera/eye
-//    glTranslatef(0.0f, 1000.0f, 100.0f);
-//    glRotatef(0.0f,1.0,0.0,0.0);
-//    glRotatef(-90.0f,0.0,1.0,0.0);
+//     place camera/eye
+    glTranslatef(0.0f, 1000.0f, 100.0f);
+    glRotatef(0.0f,1.0,0.0,0.0);
+    glRotatef(-180.0f,0.0,1.0,0.0);
 
     // Save State
     float fPrevColor[4];
@@ -65,15 +63,28 @@ void Minimap::privateRender() {
 //    glLoadIdentity();
 //    glTranslatef(0.0f, 0.0f, -2.0f);
 
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, g_texture);
     glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-100.0f, -50.0f, 100.0f);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f(-50.0f, -50.0f, 100.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f(-50.0f, 0.0f, 100.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-100.0f, 0.0f, 100.0f);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -0.8f, 0.0f);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-0.7f, -0.8f, 0.0f);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-0.7f, -0.5f, 0.0f);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, -0.5f, 0.0f);
     glEnd();
     glDisable(GL_TEXTURE_2D);
+
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
 
 //    glutSwapBuffers();
 }

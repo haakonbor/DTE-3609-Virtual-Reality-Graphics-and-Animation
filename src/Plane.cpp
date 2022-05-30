@@ -141,7 +141,7 @@ void Plane::privateRender()
 void Plane::privateUpdate()
 {
     if (matrix_[3].x < - 1.5 * 200 * scaling) {
-        matrix_ = glm::translate(matrix_, glm::vec3(1.5 * 200 * scaling - 2, 0.0f, 0.0f));
+        matrix_ = glm::translate(matrix_, glm::vec3(3.75f * 200 * scaling - 2, 0.0f, 0.0f));
     }
     else {
         matrix_ = glm::translate(matrix_, glm::vec3(-1.0f, 0.0f, 0.0f));

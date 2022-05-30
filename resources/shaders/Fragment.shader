@@ -38,5 +38,5 @@ void main() {
 
         vec3 result = ambient + diffuse + specular;
 
-        color = mix(texColor, vec4(result, 1.0f), 0.9);
+        color = mix(texColor, vec4(result, 1.0f), 0.1);
 };

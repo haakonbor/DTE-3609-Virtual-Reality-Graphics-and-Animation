@@ -27,7 +27,6 @@ public:
     glm::vec3 getPosition() { return position_; }
     float getSize() { return size_; }
 
-
 protected:
     virtual void privateInit();
     virtual void privateRender();
@@ -102,5 +101,6 @@ private:
     float scaling;
 
     glm::vec3 position_;
+    float speed_ = -3.0f;
 };
 

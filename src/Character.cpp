@@ -32,7 +32,7 @@ void Character::privateInit()
 
     //setUpTextures();
 
-    setUpHealthbar();
+//    setUpHealthbar();
 
     GLenum err = glGetError();
     if (err != GL_NO_ERROR)
@@ -63,10 +63,10 @@ void Character::privateRender()
     renderCube();
 
     // Draw normal lines of cube
-    renderNormals();
+//    renderNormals();
 
     // Draw healthbar
-    renderHealthbar();
+//    renderHealthbar();
 
     // Disable stuff
     //glDisable(GL_LIGHT1);
@@ -375,9 +375,9 @@ void Character::privateUpdate()
 
 }
 
-void Character::increaseSpeed()
+void Character::moveLeft()
 {
-    if (position_.z > -150.0f) {
+    if (position_.z > -180.0f) {
         auto const trans = glm::vec3(0.0f, 0.0f, -5.0f);
         translation_ = glm::translate(translation_, trans);
         matrix_ = translation_ * rotation_ * scaling_;
@@ -385,9 +385,9 @@ void Character::increaseSpeed()
     }
 }
 
-void Character::decreaseSpeed()
+void Character::moveRight()
 {
-    if (position_.z < 150.0f) {
+    if (position_.z < 180.0f) {
         auto const trans = glm::vec3(0.0f, 0.0f, 5.0f);
         translation_ = glm::translate(translation_, trans);
         matrix_ = translation_ * rotation_ * scaling_;

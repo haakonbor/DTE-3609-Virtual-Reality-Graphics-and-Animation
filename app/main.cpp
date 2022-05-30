@@ -54,8 +54,8 @@ void display()
   if(keyPressed[KEY_ID_C]==true)      gm->getCam()->moveDown();
   if(keyPressed[KEY_ID_H]==true)      gm->getCam()->rotateLeft();
   if(keyPressed[KEY_ID_J]==true)      gm->getCam()->rotateRight();
-  if(keyPressed[KEY_ID_O]==true)      gm->getCharacter()->increaseSpeed();
-  if(keyPressed[KEY_ID_P]==true)      gm->getCharacter()->decreaseSpeed();
+  if(keyPressed[KEY_ID_O]==true)      gm->getCharacter()->moveLeft();
+  if(keyPressed[KEY_ID_P]==true)      gm->getCharacter()->moveRight();
 
   glutSwapBuffers();
   glutPostRedisplay();
