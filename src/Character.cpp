@@ -26,11 +26,13 @@ void Character::privateInit()
 {   
     setUpVertices();
 
-    createNormalLineList();
+//    setUpNormals();
 
-    setUpLighting();
+//    createNormalLineList();
 
-    //setUpTextures();
+//    setUpLighting();
+
+//    setUpTextures();
 
 //    setUpHealthbar();
 
@@ -54,10 +56,10 @@ void Character::privateInit()
 void Character::privateRender()
 {
     // Enable stuff
-    //glEnable(GL_LIGHTING);
-    //glEnable(GL_LIGHT0);
-    //glEnable(GL_LIGHT1);
-    //glEnable(GL_COLOR_MATERIAL);
+//    glEnable(GL_LIGHTING);
+//    glEnable(GL_LIGHT0);
+//    glEnable(GL_LIGHT1);
+//    glEnable(GL_COLOR_MATERIAL);
 
     // Draw cube
     renderCube();
@@ -69,10 +71,10 @@ void Character::privateRender()
 //    renderHealthbar();
 
     // Disable stuff
-    //glDisable(GL_LIGHT1);
-    //glDisable(GL_LIGHTING);
-    //glDisable(GL_LIGHT0);
-    //glDisable(GL_COLOR_MATERIAL);
+//    glDisable(GL_LIGHT1);
+//    glDisable(GL_LIGHTING);
+//    glDisable(GL_LIGHT0);
+//    glDisable(GL_COLOR_MATERIAL);
 //    glDisable(GL_FOG);
 
     GLenum err = glGetError();
@@ -293,6 +295,14 @@ void Character::createNormalLineList()
                        vertexArray_[i].y + sharedNormalArray_[i].y * 10,
                        vertexArray_[i].z + sharedNormalArray_[i].z * 10);
         }
+//        for (size_t i = 0; i < vertexArray_.size() && i < normalArray_.size(); i++) {
+//            glVertex3f(vertexArray_[i].x,
+//                       vertexArray_[i].y,
+//                       vertexArray_[i].z);
+//            glVertex3f(vertexArray_[i].x + normalArray_[i].x * 10,
+//                       vertexArray_[i].y + normalArray_[i].y * 10,
+//                       vertexArray_[i].z + normalArray_[i].z * 10);
+//        }
 
         glEnd();
     glEndList();
@@ -387,7 +397,7 @@ void Character::moveLeft()
 
 void Character::moveRight()
 {
-    if (position_.z < 180.0f) {
+    if (position_.z < 230.0f) {
         auto const trans = glm::vec3(0.0f, 0.0f, 5.0f);
         translation_ = glm::translate(translation_, trans);
         matrix_ = translation_ * rotation_ * scaling_;

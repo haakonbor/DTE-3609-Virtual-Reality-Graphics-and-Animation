@@ -1,6 +1,8 @@
 #include "../include/GameManager.hpp"
 
 #include <math.h>
+#include <iostream>
+#include <fstream>
 
 GameManager::GameManager()
 {
@@ -72,13 +74,26 @@ void GameManager::privateInit()
   snow_.reset(new Snow());
   this->addSubObject(snow_);
 
-  // Minimap
-  minimap_.reset(new Minimap());
-  this->addSubObject(minimap_);
+//  // Minimap
+//  minimap_.reset(new Minimap());
+//  this->addSubObject(minimap_);
 
   // Text
-  text_.reset(new Text("Score: "));
-  this->addSubObject(text_);
+  scoreText_.reset(new Text("Score: ", -0.95f, - 0.9f, 0.0f));
+  this->addSubObject(scoreText_);
+
+  std::ifstream infile("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/data/highscore.dat");
+  if (infile){
+      infile >> highscore_;
+  }
+  else {
+      std::cout << "COULD NOT OPEN HIGHSCORE FILE!" << std::endl;
+  }
+
+  infile.close();
+
+  highscoreText_.reset(new Text("Highscore: ", -0.95f, - 0.8f, 0.0f, true, highscore_));
+  this->addSubObject(highscoreText_);
 }
 
 void GameManager::privateRender()
@@ -101,8 +116,6 @@ void GameManager::checkCollisions()
         const auto obsSize = obs->getSize();
         const auto charPos = character_->getPosition();
         const auto charSize = character_->getSize();
-//        std::cout << "OBSTACLE: " << obsPos.x << " " << obsPos.y << std::endl;
-//        std::cout << "CHARACTER: " << charPos.x << " " << charPos.y << std::endl;
 
         const bool collisionX = charPos.x - charSize <= obsPos.x + obsSize && charPos.x + charSize >= obsPos.x - obsSize;
         const bool collisionY = charPos.y - charSize <= obsPos.y + obsSize && charPos.y + charSize >= obsPos.y - obsSize;
@@ -142,6 +155,20 @@ void GameManager::resetCharacterAfterCollision()
         character_->setColor(1.0f, 0.0f, 0.0f);
     }
     else {
+        unsigned int score = scoreText_->getScore();
+
+        if (score > highscore_) {
+            std::ofstream outfile("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/data/highscore.dat", std::ios::trunc);
+            if (outfile){
+                outfile << score;
+            }
+            else {
+                std::cout << "COULD NOT OPEN HIGHSCORE FILE!" << std::endl;
+            }
+
+            outfile.close();
+        }
+
         exit(0);
     }
 

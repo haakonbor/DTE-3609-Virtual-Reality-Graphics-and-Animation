@@ -39,11 +39,14 @@ class GameManager : public SceneObject
     std::vector<std::shared_ptr<Obstacle>> obstacles_;
     std::shared_ptr<Camera> cam_;
     std::shared_ptr<Snow> snow_;
-    std::shared_ptr<Text> text_;
+    std::shared_ptr<Text> scoreText_;
+    std::shared_ptr<Text> highscoreText_;
     std::shared_ptr<Minimap> minimap_;
 
     void checkCollisions();
     void handleCollision(std::shared_ptr<Obstacle> obs);
     void resetCharacterAfterCollision();
+
+    int highscore_ = 0;
 };
 

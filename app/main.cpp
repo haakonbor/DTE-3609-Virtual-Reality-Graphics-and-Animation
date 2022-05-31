@@ -69,6 +69,7 @@ void keyDown(unsigned char key, int x, int y)
     case 'q':
     case 27:
       glutDestroyWindow(window);
+      exit(0);
 #ifndef _WIN32
       // Must use this with regular glut, since it never returns control to main().
       exit(0);

@@ -25,7 +25,7 @@ void Snow::privateInit() {
         particles[loop].yi=float((rand()%50)-25.0f)*10.0f;		// Random Speed On Y Axis
         particles[loop].zi=float((rand()%50)-25.0f)*10.0f;		// Random Speed On Z Axis
         particles[loop].xg=0.0f;									// Set Horizontal Pull To Zero
-        particles[loop].yg=-2.8f;								// Set Vertical Pull Downward
+        particles[loop].yg=-3.8f;								// Set Vertical Pull Downward
         particles[loop].zg=0.0f;									// Set Pull On Z Axis To Zero
     }
 
@@ -100,7 +100,7 @@ void Snow::setUpTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     int width, height, nrChannels;
-    std::string filepath = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/snowflake.jpg";
+    std::string filepath = "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/snow.png";
     unsigned char *data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
