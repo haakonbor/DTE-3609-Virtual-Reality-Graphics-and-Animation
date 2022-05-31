@@ -10,12 +10,8 @@
 class Text : public SceneObject
 {
     public:
-        Text(std::string string, float x, float y, float z, bool constant = false, unsigned int score = 0);
+        Text(std::string string, float x, float y, float z);
         ~Text();
-
-        unsigned int getScore() { return score_; }
-
-        void setScore(unsigned int newScore) { score_ = newScore; }
 
     protected:
         void privateInit();
@@ -28,9 +24,6 @@ class Text : public SceneObject
         float pos_y;
         float pos_z;
         std::string string_;
-        unsigned int stringLength_;
-        bool constant_;
-        unsigned int score_ = 0;
 };
 
 

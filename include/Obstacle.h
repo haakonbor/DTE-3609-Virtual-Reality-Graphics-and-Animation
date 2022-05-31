@@ -101,6 +101,6 @@ private:
     float scaling;
 
     glm::vec3 position_;
-    float speed_ = -3.0f;
+    float speed_ = -6.0f;
 };
 

@@ -37,6 +37,7 @@ set( INCLUDE
         include/Utils.hpp
         include/Snow.hpp
         include/Text.hpp
+        include/ScoreText.hpp
         include/Minimap.hpp
         include/IndexBuffer.h
         include/Shader.h
@@ -59,6 +60,7 @@ set( SRCS
         src/Character.cpp
         src/Snow.cpp
         src/Text.cpp
+        src/ScoreText.cpp
         src/Minimap.cpp
         src/IndexBuffer.cpp
         src/Shader.cpp

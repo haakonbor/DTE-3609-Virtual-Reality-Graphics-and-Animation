@@ -54,8 +54,8 @@ private:
     VertexBuffer vbo = VertexBuffer(positions_, LS_POS_ARRAY_SIZE * sizeof(float));
     VertexBufferLayout layout;
     IndexBuffer ibo = IndexBuffer(indices_, LS_IND_ARRAY_SIZE);
-    Shader shader = Shader("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Vertex.shader",
-                           "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Fragment.shader");
+    Shader shader = Shader("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Plane_vertex.shader",
+                           "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Plane_fragment.shader");
     Texture texture = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/road.jpg");
     unsigned int textureSlot = 0;
     float scaling;

@@ -22,6 +22,10 @@ bool keyPressed[30];
 int mousePosX, mousePosY; 
 float moveX, moveY;
 
+int upgradeCoolDown = 100;
+int timeSinceUpgrade = 0;
+
+
 void init()
 {
   glewInit();
@@ -46,6 +50,8 @@ void display()
   gm->update(counter.fps());
   gm->render();
 
+  timeSinceUpgrade++;
+
   if(keyPressed[KEY_ID_W]==true)      gm->getCam()->moveForward();
   if(keyPressed[KEY_ID_A]==true)      gm->getCam()->moveLeft();
   if(keyPressed[KEY_ID_D]==true)      gm->getCam()->moveRight();
@@ -56,7 +62,14 @@ void display()
   if(keyPressed[KEY_ID_J]==true)      gm->getCam()->rotateRight();
   if(keyPressed[KEY_ID_O]==true)      gm->getCharacter()->moveLeft();
   if(keyPressed[KEY_ID_P]==true)      gm->getCharacter()->moveRight();
-
+  if(keyPressed[KEY_ID_U]==true) {
+    unsigned int currentScore = gm->getScoreText()->getScore();
+    if (gm->getScoreText()->getScore() > 1000 && timeSinceUpgrade > upgradeCoolDown) {
+        gm->getCharacter()->upgradeAndHeal();
+        gm->getScoreText()->setScore(currentScore - 1000);
+        timeSinceUpgrade = 0;
+    }
+  }
   glutSwapBuffers();
   glutPostRedisplay();
 
@@ -106,6 +119,9 @@ void keyDown(unsigned char key, int x, int y)
     case 'p':
       keyPressed[KEY_ID_P] = true;
       break;
+    case 'u':
+      keyPressed[KEY_ID_U] = true;
+      break;
 
 
     default:
@@ -146,6 +162,9 @@ void keyUp(unsigned char key, int x, int y)
       break;
     case 'p':
       keyPressed[KEY_ID_P] = false;
+      break;
+    case 'u':
+      keyPressed[KEY_ID_U] = false;
       break;
 
   }

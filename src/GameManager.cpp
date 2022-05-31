@@ -79,7 +79,7 @@ void GameManager::privateInit()
 //  this->addSubObject(minimap_);
 
   // Text
-  scoreText_.reset(new Text("Score: ", -0.95f, - 0.9f, 0.0f));
+  scoreText_.reset(new ScoreText("Score: ", -0.95f, - 0.9f, 0.0f));
   this->addSubObject(scoreText_);
 
   std::ifstream infile("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/data/highscore.dat");
@@ -92,8 +92,16 @@ void GameManager::privateInit()
 
   infile.close();
 
-  highscoreText_.reset(new Text("Highscore: ", -0.95f, - 0.8f, 0.0f, true, highscore_));
+  highscoreText_.reset(new Text("Highscore: " + std::to_string(highscore_), -0.95f, - 0.8f, 0.0f));
   this->addSubObject(highscoreText_);
+
+  controlsText_.reset(new Text("O: Left   P: Right", -0.95f, - 0.7f, 0.0f));
+  this->addSubObject(controlsText_);
+
+  upgradeText1_.reset(new Text("U: Heal and upgrade max HP", 0.5f, - 0.7f, 0.0f));
+  this->addSubObject(upgradeText1_);
+  upgradeText1_.reset(new Text("(cost: 1000 points)", 0.5f, - 0.8f, 0.0f));
+  this->addSubObject(upgradeText1_);
 }
 
 void GameManager::privateRender()
@@ -144,14 +152,15 @@ void GameManager::handleCollision(std::shared_ptr<Obstacle> obs)
 void GameManager::resetCharacterAfterCollision()
 {
     auto life = character_->getCurrentLife();
+    auto maxLife = character_->getMaxLife();
 
-    if (life > 0.5f) {
+    if (life / maxLife > 0.5f) {
         character_->setColor(0.0f, 1.0f, 0.0f);
     }
-    else if (life > 0.25f) {
+    else if (life / maxLife > 0.25f) {
         character_->setColor(1.0f, 1.0f, 0.0f);
     }
-    else if (life > 0.0f){
+    else if (life / maxLife > 0.0f){
         character_->setColor(1.0f, 0.0f, 0.0f);
     }
     else {
@@ -184,6 +193,11 @@ std::shared_ptr<Camera> GameManager::getCam()
 std::shared_ptr<Character> GameManager::getCharacter()
 {
   return character_;
+}
+
+std::shared_ptr<ScoreText> GameManager::getScoreText()
+{
+    return scoreText_;
 }
 
 

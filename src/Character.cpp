@@ -24,7 +24,45 @@ Character::~Character()
 
 void Character::privateInit()
 {   
-    setUpVertices();
+    // Shader implemetation
+
+    /* VERTEX BUFFER */
+    // Is set up in initialization of object attribute
+
+    /* LAYOUT */
+    // 3 floats for world position
+    layout.Push<float>(3);
+    // 3 floats for normals
+    layout.Push<float>(3);
+    // 2 floats for texture position
+//    layout.Push<float>(2);
+
+    /* VERTEX ARRAY */
+    vao.AddBuffer(vbo, layout);
+
+    /* INDEX BUFFER */
+    // Is set up in initialization of object attribute
+
+    /* SHADER */
+    shader.Bind();
+    shader.SetUniform4f("u_Color", color_[0], color_[1], color_[2], 1.0f);
+    shader.SetUniform3f("u_LightPosition", -200.0f, 500.0f, -200.0f);
+
+    /* TEXTURE */
+//    texture.BindCubemap(textureSlot);
+//    shader.SetUniform1i("u_Texture", textureSlot);
+
+    /* UNBINDING */
+//    texture.UnbindCubemap();
+    vao.Unbind();
+    vbo.Unbind();
+    ibo.Unbind();
+    shader.Unbind();
+
+/***************************************************************************/
+
+    // Fixed function pipeline implemetation
+//    setUpVertices();
 
 //    setUpNormals();
 
@@ -36,10 +74,10 @@ void Character::privateInit()
 
 //    setUpHealthbar();
 
-    GLenum err = glGetError();
-    if (err != GL_NO_ERROR)
-      std::cout<< "OpenGL error: " << gluErrorString(err) << std::endl;
-    std::cout.flush();
+//    GLenum err = glGetError();
+//    if (err != GL_NO_ERROR)
+//      std::cout<< "OpenGL error: " << gluErrorString(err) << std::endl;
+//    std::cout.flush();
 
 //    char *buff = (char*)glGetString(GL_VERSION);
 //    std::cout<< buff << std::endl;
@@ -55,6 +93,29 @@ void Character::privateInit()
 
 void Character::privateRender()
 {
+    // Shader implemetation
+
+    shader.Bind();
+    vao.Bind();
+    ibo.Bind();
+//    texture.BindCubemap(textureSlot);
+
+    shader.SetUniformMat4f("u_ViewMatrix", viewMatrix_);
+    shader.SetUniformMat4f("u_ProjectionMatrix", projMatrix_);
+    shader.SetUniformMat4f("u_ModelMatrix", matrix_);
+
+    shader.SetUniform4f("u_Color", color_[0], color_[1], color_[2], 1.0f);
+
+    GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
+
+//    texture.UnbindCubemap();
+    ibo.Unbind();
+    vao.Unbind();
+    shader.Unbind();
+
+    /***************************************************************************/
+
+    // Fixed function pipeline implemetation
     // Enable stuff
 //    glEnable(GL_LIGHTING);
 //    glEnable(GL_LIGHT0);
@@ -62,7 +123,7 @@ void Character::privateRender()
 //    glEnable(GL_COLOR_MATERIAL);
 
     // Draw cube
-    renderCube();
+//    renderCube();
 
     // Draw normal lines of cube
 //    renderNormals();
@@ -77,10 +138,10 @@ void Character::privateRender()
 //    glDisable(GL_COLOR_MATERIAL);
 //    glDisable(GL_FOG);
 
-    GLenum err = glGetError();
-    if (err != GL_NO_ERROR)
-      std::cout<< "OpenGL error: " << gluErrorString(err) << std::endl;
-    std::cout.flush();
+//    GLenum err = glGetError();
+//    if (err != GL_NO_ERROR)
+//      std::cout<< "OpenGL error: " << gluErrorString(err) << std::endl;
+//    std::cout.flush();
 
 }
 
@@ -331,9 +392,6 @@ void Character::setUpTextures()
 
 void Character::setUpHealthbar()
 {
-    life_ = 100.0f;
-    armor_ = 50.0f;
-
     setUpHBVertices();
     setUpHBTextures();
 }
@@ -402,6 +460,21 @@ void Character::moveRight()
         translation_ = glm::translate(translation_, trans);
         matrix_ = translation_ * rotation_ * scaling_;
         position_ += trans;
+    }
+}
+
+void Character::upgradeAndHeal() {
+    maxLife_ += 0.5f;
+    life_ = std::min(life_ + maxLife_ / 3, maxLife_);
+
+    if (life_ / maxLife_ > 0.5f) {
+        setColor(0.0f, 1.0f, 0.0f);
+    }
+    else if (life_ / maxLife_ > 0.25f) {
+        setColor(1.0f, 1.0f, 0.0f);
+    }
+    else if (life_ / maxLife_ > 0.0f){
+        setColor(1.0f, 0.0f, 0.0f);
     }
 }
 

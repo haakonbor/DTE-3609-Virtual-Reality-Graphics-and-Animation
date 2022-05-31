@@ -77,7 +77,7 @@ void Obstacle::privateUpdate()
 
     if (position_.x < - 1.5 * 200 * 3) {
 
-        trans = glm::vec3(resetDistance, tan(glm::radians(30.0f)) * resetDistance, -150.0f + float(rand() % 300));
+        trans = glm::vec3(resetDistance, tan(glm::radians(30.0f)) * resetDistance, -200.0f + float(rand() % 400));
         translation_ = glm::translate(glm::mat4(1.0f), trans);
         position_ = trans;
     }

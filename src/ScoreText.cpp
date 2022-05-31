@@ -1,21 +1,21 @@
-#include "../include/Text.hpp"
+#include "../include/ScoreText.hpp"
 
-Text::Text(std::string string, float x, float y, float z)
-    :pos_x(x), pos_y(y), pos_z(z), string_(string)
+ScoreText::ScoreText(std::string string, float x, float y, float z, bool constant, unsigned int score)
+    :pos_x(x), pos_y(y), pos_z(z), string_(string), stringLength_(string.length()), constant_(constant), score_(score)
 {
 
 }
 
-Text::~Text() {
+ScoreText::~ScoreText() {
 
 }
 
-void Text::privateInit()
+void ScoreText::privateInit()
 {
-
+    string_ += std::to_string(score_);
 }
 
-void Text::privateRender() {
+void ScoreText::privateRender() {
     glEnable(GL_COLOR_MATERIAL);
     glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -44,6 +44,10 @@ void Text::privateRender() {
     glDisable(GL_COLOR_MATERIAL);
 }
 
-void Text::privateUpdate() {
-
+void ScoreText::privateUpdate() {
+    if (!constant_) {
+        score_++;
+        string_.resize(stringLength_);
+        string_ += std::to_string(score_);
+    }
 }

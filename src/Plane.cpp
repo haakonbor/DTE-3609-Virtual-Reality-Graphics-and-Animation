@@ -51,7 +51,8 @@ void Plane::privateInit()
   texture.Bind(textureSlot);
   shader.SetUniform1i("u_Texture", textureSlot);
   shader.SetUniform1i("u_DiffuseMaterial", 0);
-//  shader.SetUniform4f("u_LightPosition", 50.0f, 300.0f, 0.0f, 1.0f);
+  shader.SetUniform3f("u_LightPosition", -200.0f, 500.0f, -200.0f);
+  shader.SetUniform3f("u_CameraPosition", viewMatrix_[3].x, viewMatrix_[3].y, viewMatrix_[3].z);
 
   /* UNBINDING */
   texture.Unbind();
