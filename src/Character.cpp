@@ -46,7 +46,8 @@ void Character::privateInit()
     /* SHADER */
     shader.Bind();
     shader.SetUniform4f("u_Color", color_[0], color_[1], color_[2], 1.0f);
-    shader.SetUniform3f("u_LightPosition", -200.0f, 500.0f, -200.0f);
+    shader.SetUniform3f("u_LightPosition", globalLightPosition_[0], globalLightPosition_[1], globalLightPosition_[2]);
+    shader.SetUniform3f("u_CameraPosition", viewMatrix_[3].x, viewMatrix_[3].y, viewMatrix_[3].z);
 
     /* TEXTURE */
 //    texture.BindCubemap(textureSlot);

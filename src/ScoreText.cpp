@@ -46,7 +46,7 @@ void ScoreText::privateRender() {
 
 void ScoreText::privateUpdate() {
     if (!constant_) {
-        score_++;
+        score_ += increment_;
         string_.resize(stringLength_);
         string_ += std::to_string(score_);
     }

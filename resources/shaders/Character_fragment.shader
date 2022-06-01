@@ -10,7 +10,6 @@ in vec3 v_FragmentPosition;
 
 uniform vec4 u_Color;
 //uniform sampler2D u_Texture;
-uniform sampler2D u_DiffuseMaterial;
 uniform vec3 u_LightPosition;
 uniform vec3 u_CameraPosition;
 

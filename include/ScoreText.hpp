@@ -16,6 +16,7 @@ class ScoreText : public SceneObject
         unsigned int getScore() { return score_; }
 
         void setScore(unsigned int newScore) { score_ = newScore; }
+        void setIncrement(unsigned int newIncrement) { increment_ = newIncrement; }
 
     protected:
         void privateInit();
@@ -31,6 +32,7 @@ class ScoreText : public SceneObject
         unsigned int stringLength_;
         bool constant_;
         unsigned int score_ = 0;
+        unsigned int increment_ = 1;
 };
 
 

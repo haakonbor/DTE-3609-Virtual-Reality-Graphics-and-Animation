@@ -74,11 +74,7 @@ void GameManager::privateInit()
   snow_.reset(new Snow());
   this->addSubObject(snow_);
 
-//  // Minimap
-//  minimap_.reset(new Minimap());
-//  this->addSubObject(minimap_);
-
-  // Text
+  // Score text
   scoreText_.reset(new ScoreText("Score: ", -0.95f, - 0.9f, 0.0f));
   this->addSubObject(scoreText_);
 
@@ -92,12 +88,19 @@ void GameManager::privateInit()
 
   infile.close();
 
+  // Highscore text
   highscoreText_.reset(new Text("Highscore: " + std::to_string(highscore_), -0.95f, - 0.8f, 0.0f));
   this->addSubObject(highscoreText_);
 
+  // Game over screen
+  gameoverBillboard_.reset(new Billboard());
+  this->addSubObject(gameoverBillboard_);
+
+  // Controls text
   controlsText_.reset(new Text("O: Left   P: Right", -0.95f, - 0.7f, 0.0f));
   this->addSubObject(controlsText_);
 
+  // Upgrade text
   upgradeText1_.reset(new Text("U: Heal and upgrade max HP", 0.5f, - 0.7f, 0.0f));
   this->addSubObject(upgradeText1_);
   upgradeText1_.reset(new Text("(cost: 1000 points)", 0.5f, - 0.8f, 0.0f));
@@ -164,6 +167,9 @@ void GameManager::resetCharacterAfterCollision()
         character_->setColor(1.0f, 0.0f, 0.0f);
     }
     else {
+        gameoverBillboard_->setState(true);
+
+        scoreText_->setIncrement(0);
         unsigned int score = scoreText_->getScore();
 
         if (score > highscore_) {
@@ -178,7 +184,7 @@ void GameManager::resetCharacterAfterCollision()
             outfile.close();
         }
 
-        exit(0);
+//        exit(0);
     }
 
     character_->setState(characterStates::normal);

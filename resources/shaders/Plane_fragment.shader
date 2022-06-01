@@ -10,13 +10,13 @@ in vec3 v_Normal;
 in vec3 v_FragmentPosition;
 
 //uniform vec4 u_Color;
-uniform sampler2D u_Texture;
-uniform sampler2D u_DiffuseMaterial;
+uniform sampler2D u_Texture1;
+uniform sampler2D u_Texture2;
 uniform vec3 u_LightPosition;
 uniform vec3 u_CameraPosition;
 
 void main() {
-        vec4 texColor = texture(u_Texture, v_TexCoord);
+        vec4 texColor = mix(texture(u_Texture1, v_TexCoord), texture(u_Texture2, v_TexCoord), 0.5);
         //color = texColor;
 
         vec3 norm = normalize(v_Normal);
@@ -24,12 +24,12 @@ void main() {
 
         // Ambient light
         vec3 ambientLight = vec3(0.1f, 0.1f, 0.1f);
-        vec3 ambient = ambientLight * texture(u_DiffuseMaterial, v_TexCoord).rgb;
+        vec3 ambient = ambientLight * texColor.rgb;
 
         // Diffuse light
         float diff = max(dot(norm, lightDir), 0.0);
         vec3 light_diffuse = vec3(0.8f,0.8f,0.8f);
-        vec3 diffuse = light_diffuse * diff * texture(u_DiffuseMaterial, v_TexCoord).rgb;
+        vec3 diffuse = light_diffuse * diff * texColor.rgb;
 
         // Specular light
         vec3 viewDir = normalize(u_CameraPosition - v_FragmentPosition);

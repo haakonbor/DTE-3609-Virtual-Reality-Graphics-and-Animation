@@ -45,17 +45,19 @@ void Plane::privateInit()
 
   /* SHADER */
   shader.Bind();
-//  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
-
-  /* TEXTURE */
-  texture.Bind(textureSlot);
-  shader.SetUniform1i("u_Texture", textureSlot);
-  shader.SetUniform1i("u_DiffuseMaterial", 0);
-  shader.SetUniform3f("u_LightPosition", -200.0f, 500.0f, -200.0f);
+//  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);yyy
+  shader.SetUniform3f("u_LightPosition", globalLightPosition_[0], globalLightPosition_[1], globalLightPosition_[2]);
   shader.SetUniform3f("u_CameraPosition", viewMatrix_[3].x, viewMatrix_[3].y, viewMatrix_[3].z);
 
+  /* TEXTURE */
+  texture1.Bind(textureSlot1);
+  shader.SetUniform1i("u_Texture1", textureSlot1);
+  texture2.Bind(textureSlot2);
+  shader.SetUniform1i("u_Texture2", textureSlot2);
+
   /* UNBINDING */
-  texture.Unbind();
+  texture1.Unbind();
+  texture2.Unbind();
   vao.Unbind();
   vbo.Unbind();
   ibo.Unbind();
@@ -67,7 +69,8 @@ void Plane::privateRender()
     shader.Bind();
     vao.Bind();
     ibo.Bind();
-    texture.Bind(textureSlot);
+    texture1.Bind(textureSlot1);
+    texture2.Bind(textureSlot2);
 
     shader.SetUniformMat4f("u_ViewMatrix", viewMatrix_);
     shader.SetUniformMat4f("u_ProjectionMatrix", projMatrix_);
@@ -75,7 +78,8 @@ void Plane::privateRender()
 
     GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
 
-    texture.Unbind();
+    texture1.Unbind();
+    texture2.Unbind();
     ibo.Unbind();
     vao.Unbind();
     shader.Unbind();

@@ -81,6 +81,8 @@ class SceneObject
   // Projection matrix
   glm::mat4 projMatrix_ = glm::perspective(glm::radians(proj::PoV), proj::aspectRatio, proj::nearClip, proj::farClip);
 
+  float globalLightPosition_[3] = {100.0f, 2000.0f, 2000.0f};
+
  private:
   // List of all SceneObjects that belong to the current object.
   std::vector<std::shared_ptr<SceneObject> > children_;

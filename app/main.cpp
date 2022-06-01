@@ -25,19 +25,97 @@ float moveX, moveY;
 int upgradeCoolDown = 100;
 int timeSinceUpgrade = 0;
 
+/* ------- Minimap -------- */
+//float vertices[4 * 3 * 2] = {
+//    -1.0f,  1.0f,  0.0f, 1.0f,
+//    -1.0f, 0.5f,  0.0f, 0.0f,
+//    -0.5f, 0.5f,  1.0f, 0.0f,
+
+//    -1.0f,  1.0f,  0.0f, 1.0f,
+//    -0.5f, 0.5f,  1.0f, 0.0f,
+//    -0.5f,  1.0f,  1.0f, 1.0f
+//};
+
+//unsigned int indices[6] = {
+//        0, 1, 2,
+//        3, 4, 5
+//};
+
+//unsigned int fbo;
+//unsigned int rbo;
+//unsigned int texture;
+//std::shared_ptr<VertexBuffer> vbo;
+//std::shared_ptr<VertexBufferLayout> layout;
+//std::shared_ptr<VertexArray> vao;
+//std::shared_ptr<IndexBuffer> ibo;
+//std::shared_ptr<Shader> shader;
+/* ----------------------- */
 
 void init()
 {
   glewInit();
 
-  glClearColor(1.0, 1.0, 1.0, 0.0);
-  glShadeModel(GL_SMOOTH);
-  glEnable(GL_DEPTH_TEST);
+  GLCall(glClearColor(1.0, 1.0, 1.0, 0.0));
 
   counter.start();
 
+/* ------- Minimap -------- */
+//  vbo.reset(new VertexBuffer(vertices, 4 * 3 * 2 * sizeof(float)));
+//  layout.reset(new VertexBufferLayout());
+//  vao.reset(new VertexArray());
+//  ibo.reset(new IndexBuffer(indices, 6));
+//  shader.reset(new Shader("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Minimap_vertex.shader",
+//                          "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Minimap_fragment.shader"));
+/* ----------------------- */
+
   gm.reset(new GameManager());
   gm->init();
+
+
+/* ------- Minimap -------- */
+//  GLCall(glGenFramebuffers(1, &fbo));
+//  GLCall(glBindFramebuffer(GL_FRAMEBUFFER, fbo));
+
+//  // Create a texture for the framebuffer
+//  GLCall(glGenTextures(1, &texture));
+//  GLCall(glBindTexture(GL_TEXTURE_2D, texture));
+//  GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 960, 540, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL));
+//  GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+//  GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+//  // Attach to frambuffer
+//  GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0));
+//  GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+
+//  // Renderbuffer
+//  GLCall(glGenRenderbuffers(1, &rbo));
+//  GLCall(glBindRenderbuffer(GL_RENDERBUFFER, rbo));
+//  GLCall(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 960, 540));
+//  glBindRenderbuffer(GL_RENDERBUFFER, 0);
+//  GLCall(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo));
+
+//  if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+//      std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+//  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+//  layout->Push<float>(2);
+//  layout->Push<float>(2);
+
+//  vao->AddBuffer(*vbo, *layout);
+
+//  shader->Bind();
+//  shader->SetUniform1i("u_Texture", 0);
+
+//  vao->Unbind();
+//  vbo->Unbind();
+//  ibo->Unbind();
+//  shader->Unbind();
+/* ----------------------- */
+
+  GLCall(glEnable(GL_BLEND));
+  GLCall(glShadeModel(GL_SMOOTH));
+  GLCall(glEnable(GL_DEPTH_TEST));
+  GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
   for(int i=0; i<30; i++)
     keyPressed[i]=false;
@@ -45,10 +123,33 @@ void init()
 
 void display()
 {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  // Render screen
+  GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
   gm->update(counter.fps());
   gm->render();
+
+/* ------- Minimap -------- */
+//  // Render fbo to texture
+//  GLCall(glBindFramebuffer(GL_FRAMEBUFFER, fbo)); //fbo stuff
+//  GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+
+//  gm->render();
+
+//  GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+
+//  shader->Bind();
+//  vao->Bind();
+//  ibo->Bind();
+//  GLCall(glBindTexture(GL_TEXTURE_2D, texture));
+
+//  GLCall(glDrawElements(GL_TRIANGLES, ibo->GetCount(), GL_UNSIGNED_INT, nullptr));
+
+//  GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+//  ibo->Unbind();
+//  vao->Unbind();
+//  shader->Unbind();
+/* ----------------------- */
 
   timeSinceUpgrade++;
 
@@ -82,7 +183,6 @@ void keyDown(unsigned char key, int x, int y)
     case 'q':
     case 27:
       glutDestroyWindow(window);
-      exit(0);
 #ifndef _WIN32
       // Must use this with regular glut, since it never returns control to main().
       exit(0);

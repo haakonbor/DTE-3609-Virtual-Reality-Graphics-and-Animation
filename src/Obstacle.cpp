@@ -26,6 +26,8 @@ void Obstacle::privateInit()
   /* LAYOUT */
   // 3 floats for world position
   layout.Push<float>(3);
+  // 3 floats for normals
+  layout.Push<float>(3);
   // 2 floats for texture position
 //  layout.Push<float>(2);
 
@@ -38,10 +40,13 @@ void Obstacle::privateInit()
   /* SHADER */
   shader.Bind();
 //  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
+  shader.SetUniform3f("u_LightPosition", globalLightPosition_[0], globalLightPosition_[1], globalLightPosition_[2]);
+  shader.SetUniform3f("u_CameraPosition", viewMatrix_[3].x, viewMatrix_[3].y, viewMatrix_[3].z);
 
   /* TEXTURE */
   texture.BindCubemap(textureSlot);
   shader.SetUniform1i("u_Texture", textureSlot);
+
 
   /* UNBINDING */
   texture.UnbindCubemap();

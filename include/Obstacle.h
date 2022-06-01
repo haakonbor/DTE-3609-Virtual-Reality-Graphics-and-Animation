@@ -15,7 +15,7 @@
 #include "../../glm-master/glm/glm.hpp"
 
 // 4 points with 3D position and 2D texture position
-#define OB_POS_ARRAY_SIZE 6 * 4 * 3
+#define OB_POS_ARRAY_SIZE 6 * 4 * (3+3)
 #define OB_IND_ARRAY_SIZE 6 * 4
 
 class Obstacle : public SceneObject
@@ -37,40 +37,40 @@ private:
 
     float positions_[OB_POS_ARRAY_SIZE] = {
         // Right face
-        size_, -size_,  size_,
-        size_, -size_, -size_,
-        size_,  size_, -size_,
-        size_,  size_,  size_,
+        size_, -size_,  size_, 1.0f, 0.0f, 0.0f,
+        size_, -size_, -size_, 1.0f, 0.0f, 0.0f,
+        size_,  size_, -size_, 1.0f, 0.0f, 0.0f,
+        size_,  size_,  size_, 1.0f, 0.0f, 0.0f,
 
         // Left face
-        -size_, -size_, -size_,
-        -size_, -size_, size_,
-        -size_,  size_, size_,
-        -size_,  size_, -size_,
+        -size_, -size_, -size_, -1.0f, 0.0f, 0.0f,
+        -size_, -size_, size_, -1.0f, 0.0f, 0.0f,
+        -size_,  size_, size_, -1.0f, 0.0f, 0.0f,
+        -size_,  size_, -size_, -1.0f, 0.0f, 0.0f,
 
         // Top face
-        -size_, size_,  size_,
-        size_, size_, size_,
-        size_,  size_, -size_,
-        -size_,  size_, -size_,
+        -size_, size_,  size_, 0.0f, 1.0f, 0.0f,
+        size_, size_, size_, 0.0f, 1.0f, 0.0f,
+        size_,  size_, -size_, 0.0f, 1.0f, 0.0f,
+        -size_,  size_, -size_, 0.0f, 1.0f, 0.0f,
 
         // Bottom face
-        -size_, -size_,  -size_,
-        size_, -size_, -size_,
-        size_,  -size_, size_,
-        -size_,  -size_, size_,
+        -size_, -size_,  -size_, 0.0f, -1.0f, 0.0f,
+        size_, -size_, -size_,  0.0f, -1.0f, 0.0f,
+        size_,  -size_, size_,  0.0f, -1.0f, 0.0f,
+        -size_,  -size_, size_,  0.0f, -1.0f, 0.0f,
 
         // North face
-        size_, -size_,  -size_,
-        -size_, -size_, -size_,
-        -size_,  size_, -size_,
-        size_,  size_, -size_,
+        size_, -size_,  -size_,  0.0f, 0.0f, -1.0f,
+        -size_, -size_, -size_, 0.0f, 0.0f, -1.0f,
+        -size_,  size_, -size_, 0.0f, 0.0f, -1.0f,
+        size_,  size_, -size_, 0.0f, 0.0f, -1.0f,
 
         // South Face
-        -size_, -size_,  size_,
-        size_, -size_,  size_,
-        size_,  size_,  size_,
-        -size_,  size_,  size_,
+        -size_, -size_,  size_, 0.0f, 0.0f, 1.0f,
+        size_, -size_,  size_, 0.0f, 0.0f, 1.0f,
+        size_,  size_,  size_, 0.0f, 0.0f, 1.0f,
+        -size_,  size_,  size_, 0.0f, 0.0f, 1.0f,
     };
 
     unsigned int indices_[OB_IND_ARRAY_SIZE] = {
@@ -101,6 +101,6 @@ private:
     float scaling;
 
     glm::vec3 position_;
-    float speed_ = -6.0f;
+    float speed_ = -3.0f;
 };
 

@@ -9,9 +9,9 @@
 #include "Snow.hpp"
 #include "ScoreText.hpp"
 #include "Text.hpp"
-#include "Minimap.hpp"
 #include "Skybox.h"
 #include "Obstacle.h"
+#include "Billboard.h"
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -43,7 +43,7 @@ class GameManager : public SceneObject
     std::shared_ptr<Text> controlsText_;
     std::shared_ptr<Text> upgradeText1_;
     std::shared_ptr<Text> upgradeText2_;
-    std::shared_ptr<Minimap> minimap_;
+    std::shared_ptr<Billboard> gameoverBillboard_;
 
     void checkCollisions();
     void handleCollision(std::shared_ptr<Obstacle> obs);

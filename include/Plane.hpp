@@ -39,7 +39,6 @@ private:
     std::vector< glm::vec3 > textureArray_;
 
     float positions_[LS_POS_ARRAY_SIZE] = {
-        // Left plane
         -100.0f,0.0f, 100.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
         100.0f, 0.0f, 100.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
         100.0f, 0.0f, -100.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
@@ -56,8 +55,10 @@ private:
     IndexBuffer ibo = IndexBuffer(indices_, LS_IND_ARRAY_SIZE);
     Shader shader = Shader("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Plane_vertex.shader",
                            "C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/shaders/Plane_fragment.shader");
-    Texture texture = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/road.jpg");
-    unsigned int textureSlot = 0;
+    Texture texture1 = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/road.jpg");
+    Texture texture2 = Texture("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/textures/dirt.jpg");
+    unsigned int textureSlot1 = 0;
+    unsigned int textureSlot2 = 1;
     float scaling;
 };
 

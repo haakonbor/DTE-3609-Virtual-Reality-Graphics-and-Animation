@@ -38,7 +38,6 @@ set( INCLUDE
         include/Snow.hpp
         include/Text.hpp
         include/ScoreText.hpp
-        include/Minimap.hpp
         include/IndexBuffer.h
         include/Shader.h
         include/VertexArray.h
@@ -48,6 +47,7 @@ set( INCLUDE
         include/Projection.h
         include/Skybox.h
         include/Obstacle.h
+        include/Billboard.h
 
         include/GLErrorHandler.h
         include/stb_image.h
@@ -61,7 +61,6 @@ set( SRCS
         src/Snow.cpp
         src/Text.cpp
         src/ScoreText.cpp
-        src/Minimap.cpp
         src/IndexBuffer.cpp
         src/Shader.cpp
         src/VertexArray.cpp
@@ -69,6 +68,7 @@ set( SRCS
         src/Texture.cpp
         src/Skybox.cpp
         src/Obstacle.cpp
+        src/Billboard.cpp
 
         src/GLErrorHandler.cpp
         src/stb_image.cpp
