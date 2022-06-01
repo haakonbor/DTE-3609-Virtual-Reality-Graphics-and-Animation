@@ -15,7 +15,7 @@
 #include "../../glm-master/glm/glm.hpp"
 
 // 4 points with 2D position and 2D texture position
-#define BB_POS_ARRAY_SIZE 4 * (3+2) //(2 + 2)
+#define BB_POS_ARRAY_SIZE 4 * (3+2)
 #define BB_IND_ARRAY_SIZE 4
 
 class Billboard : public SceneObject

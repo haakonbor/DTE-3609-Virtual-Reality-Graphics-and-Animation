@@ -19,6 +19,7 @@ void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& la
 	const auto& elements = layout.GetElements();
 	unsigned int offset = 0;
 	
+    // Set attribute pointers of elements in vertexbuffer in accordance to the layout
 	for (unsigned int i = 0; i < elements.size(); i++) {
 		const auto& element = elements[i];
 		GLCall(glEnableVertexAttribArray(i));

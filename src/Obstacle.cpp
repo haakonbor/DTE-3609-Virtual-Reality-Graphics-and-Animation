@@ -28,8 +28,6 @@ void Obstacle::privateInit()
   layout.Push<float>(3);
   // 3 floats for normals
   layout.Push<float>(3);
-  // 2 floats for texture position
-//  layout.Push<float>(2);
 
   /* VERTEX ARRAY */
   vao.AddBuffer(vbo, layout);
@@ -39,14 +37,12 @@ void Obstacle::privateInit()
 
   /* SHADER */
   shader.Bind();
-//  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
   shader.SetUniform3f("u_LightPosition", globalLightPosition_[0], globalLightPosition_[1], globalLightPosition_[2]);
   shader.SetUniform3f("u_CameraPosition", viewMatrix_[3].x, viewMatrix_[3].y, viewMatrix_[3].z);
 
   /* TEXTURE */
   texture.BindCubemap(textureSlot);
   shader.SetUniform1i("u_Texture", textureSlot);
-
 
   /* UNBINDING */
   texture.UnbindCubemap();
@@ -80,12 +76,13 @@ void Obstacle::privateUpdate()
     glm::vec3 trans;
     float resetDistance = 4000.0f;
 
+    // If outside of view, reset position with a random z-value within landscape
     if (position_.x < - 1.5 * 200 * 3) {
-
         trans = glm::vec3(resetDistance, tan(glm::radians(30.0f)) * resetDistance, -200.0f + float(rand() % 400));
         translation_ = glm::translate(glm::mat4(1.0f), trans);
         position_ = trans;
     }
+    // if not, move diagonally down along landscape
     else {
         trans = glm::vec3(speed_, tan(glm::radians(30.0f)) * speed_, 0.0f);
         translation_ = glm::translate(translation_, trans);

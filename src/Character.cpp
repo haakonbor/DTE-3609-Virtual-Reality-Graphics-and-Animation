@@ -34,8 +34,6 @@ void Character::privateInit()
     layout.Push<float>(3);
     // 3 floats for normals
     layout.Push<float>(3);
-    // 2 floats for texture position
-//    layout.Push<float>(2);
 
     /* VERTEX ARRAY */
     vao.AddBuffer(vbo, layout);
@@ -49,12 +47,8 @@ void Character::privateInit()
     shader.SetUniform3f("u_LightPosition", globalLightPosition_[0], globalLightPosition_[1], globalLightPosition_[2]);
     shader.SetUniform3f("u_CameraPosition", viewMatrix_[3].x, viewMatrix_[3].y, viewMatrix_[3].z);
 
-    /* TEXTURE */
-//    texture.BindCubemap(textureSlot);
-//    shader.SetUniform1i("u_Texture", textureSlot);
 
     /* UNBINDING */
-//    texture.UnbindCubemap();
     vao.Unbind();
     vbo.Unbind();
     ibo.Unbind();
@@ -95,11 +89,9 @@ void Character::privateInit()
 void Character::privateRender()
 {
     // Shader implemetation
-
     shader.Bind();
     vao.Bind();
     ibo.Bind();
-//    texture.BindCubemap(textureSlot);
 
     shader.SetUniformMat4f("u_ViewMatrix", viewMatrix_);
     shader.SetUniformMat4f("u_ProjectionMatrix", projMatrix_);
@@ -109,7 +101,6 @@ void Character::privateRender()
 
     GLCall(glDrawElements(GL_QUADS, ibo.GetCount(), GL_UNSIGNED_INT, nullptr));
 
-//    texture.UnbindCubemap();
     ibo.Unbind();
     vao.Unbind();
     shader.Unbind();
@@ -357,6 +348,8 @@ void Character::createNormalLineList()
                        vertexArray_[i].y + sharedNormalArray_[i].y * 10,
                        vertexArray_[i].z + sharedNormalArray_[i].z * 10);
         }
+
+        // Corner normals
 //        for (size_t i = 0; i < vertexArray_.size() && i < normalArray_.size(); i++) {
 //            glVertex3f(vertexArray_[i].x,
 //                       vertexArray_[i].y,
@@ -438,9 +431,6 @@ void Character::setUpHBTextures()
 
 void Character::privateUpdate()
 {
-//    auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.2f * speed_, 0.0f, 0.0f));
-//    auto rotation = glm::rotate(matrix_, 0.01f, glm::vec3(0.0f,1.0f,0.0f));
-//    matrix_ = translation * rotation;
 
 }
 

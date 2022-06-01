@@ -6,6 +6,7 @@ Texture::Texture(const std::string& filepath)
 	: m_FilePath(filepath), m_LocalBuffer(nullptr),
 	m_Width(0), m_Height(0), m_BPP(0)
 {
+    // Load data from file into buffer
 	stbi_set_flip_vertically_on_load(1);
 	m_LocalBuffer = stbi_load(filepath.c_str(), &m_Width, &m_Height, &m_BPP, 4);
     if (!m_LocalBuffer)
@@ -13,14 +14,17 @@ Texture::Texture(const std::string& filepath)
         std::cout << "FAILED TO LOAD TEXTURE FROM " << filepath  <<"\nFAILURE REASON: "<< stbi_failure_reason() << std::endl;
     }
 
+    // Create and bind texture
 	GLCall(glGenTextures(1, &m_RendererID));
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_RendererID));
 
+    // Set texture parameteres
     GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
     GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
+    // Load buffer into texture
     GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer));
 	GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 
@@ -33,10 +37,12 @@ Texture::Texture(const std::vector<std::string> faces)
     : m_LocalBuffer(nullptr),
       m_Width(0), m_Height(0), m_BPP(0)
 {
+    // Create and bind texture
     stbi_set_flip_vertically_on_load(0);
     GLCall(glGenTextures(1, &m_RendererID));
     GLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID));
 
+    // Load data from file into buffer
     for (unsigned int i = 0; i < faces.size(); i++) {
         m_LocalBuffer = stbi_load(faces[i].c_str(), &m_Width, &m_Height, &m_BPP, 4);
         if (!m_LocalBuffer)
@@ -49,6 +55,7 @@ Texture::Texture(const std::vector<std::string> faces)
         }
     }
 
+    // Set texture parameteres
     GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
     GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
     GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));

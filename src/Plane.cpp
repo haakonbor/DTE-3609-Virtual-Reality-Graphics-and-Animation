@@ -66,6 +66,7 @@ void Plane::privateInit()
 
 void Plane::privateRender()
 {
+    // Shader implementation
     shader.Bind();
     vao.Bind();
     ibo.Bind();
@@ -84,6 +85,7 @@ void Plane::privateRender()
     vao.Unbind();
     shader.Unbind();
 
+    // Fixed function pipeline implementation
 //    // Draw filled polygons
 //    glColor3f(0.0f, 1.0f, 0.0f);
 //    glEnableClientState(GL_VERTEX_ARRAY);
@@ -145,9 +147,11 @@ void Plane::privateRender()
 
 void Plane::privateUpdate()
 {
+    // If outside of view, reset position
     if (matrix_[3].x < - 1.5 * 200 * scaling) {
         matrix_ = glm::translate(matrix_, glm::vec3(3.75f * 200 * scaling - 2, 0.0f, 0.0f));
     }
+    // if not, move diagonally downwards
     else {
         matrix_ = glm::translate(matrix_, glm::vec3(-1.0f, 0.0f, 0.0f));
     }

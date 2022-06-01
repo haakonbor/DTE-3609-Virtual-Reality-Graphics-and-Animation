@@ -22,6 +22,7 @@ bool keyPressed[30];
 int mousePosX, mousePosY; 
 float moveX, moveY;
 
+// Upgrade variables
 int upgradeCoolDown = 100;
 int timeSinceUpgrade = 0;
 
@@ -153,14 +154,15 @@ void display()
 
   timeSinceUpgrade++;
 
-  if(keyPressed[KEY_ID_W]==true)      gm->getCam()->moveForward();
-  if(keyPressed[KEY_ID_A]==true)      gm->getCam()->moveLeft();
-  if(keyPressed[KEY_ID_D]==true)      gm->getCam()->moveRight();
-  if(keyPressed[KEY_ID_S]==true)      gm->getCam()->moveBackward();
-  if(keyPressed[KEY_ID_SPACE]==true)  gm->getCam()->moveUp();
-  if(keyPressed[KEY_ID_C]==true)      gm->getCam()->moveDown();
-  if(keyPressed[KEY_ID_H]==true)      gm->getCam()->rotateLeft();
-  if(keyPressed[KEY_ID_J]==true)      gm->getCam()->rotateRight();
+  /* Debug controls */
+//  if(keyPressed[KEY_ID_W]==true)      gm->getCam()->moveForward();
+//  if(keyPressed[KEY_ID_A]==true)      gm->getCam()->moveLeft();
+//  if(keyPressed[KEY_ID_D]==true)      gm->getCam()->moveRight();
+//  if(keyPressed[KEY_ID_S]==true)      gm->getCam()->moveBackward();
+//  if(keyPressed[KEY_ID_SPACE]==true)  gm->getCam()->moveUp();
+//  if(keyPressed[KEY_ID_C]==true)      gm->getCam()->moveDown();
+//  if(keyPressed[KEY_ID_H]==true)      gm->getCam()->rotateLeft();
+//  if(keyPressed[KEY_ID_J]==true)      gm->getCam()->rotateRight();
   if(keyPressed[KEY_ID_O]==true)      gm->getCharacter()->moveLeft();
   if(keyPressed[KEY_ID_P]==true)      gm->getCharacter()->moveRight();
   if(keyPressed[KEY_ID_U]==true) {

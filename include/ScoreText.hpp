@@ -23,7 +23,6 @@ class ScoreText : public SceneObject
         void privateRender();
         void privateUpdate();
 
-
     private:
         float pos_x;
         float pos_y;

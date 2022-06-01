@@ -24,8 +24,6 @@ void Skybox::privateInit()
   /* LAYOUT */
   // 3 floats for world position
   layout.Push<float>(3);
-  // 2 floats for texture position
-//  layout.Push<float>(2);
 
   /* VERTEX ARRAY */
   vao.AddBuffer(vbo, layout);
@@ -35,7 +33,6 @@ void Skybox::privateInit()
 
   /* SHADER */
   shader.Bind();
-//  shader.SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
 
   /* TEXTURE */
   texture.BindCubemap(textureSlot);

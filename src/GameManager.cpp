@@ -78,6 +78,7 @@ void GameManager::privateInit()
   scoreText_.reset(new ScoreText("Score: ", -0.95f, - 0.9f, 0.0f));
   this->addSubObject(scoreText_);
 
+  // load highscore from file
   std::ifstream infile("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/data/highscore.dat");
   if (infile){
       infile >> highscore_;
@@ -85,7 +86,6 @@ void GameManager::privateInit()
   else {
       std::cout << "COULD NOT OPEN HIGHSCORE FILE!" << std::endl;
   }
-
   infile.close();
 
   // Highscore text
@@ -168,12 +168,13 @@ void GameManager::resetCharacterAfterCollision()
     }
     else {
         gameoverBillboard_->setState(true);
-
         scoreText_->setIncrement(0);
         unsigned int score = scoreText_->getScore();
 
         if (score > highscore_) {
+            // Overwrite current highscore with new highscore
             std::ofstream outfile("C:/dev/uni/DTE-3609_VR_graphics_animation/start_code/resources/data/highscore.dat", std::ios::trunc);
+
             if (outfile){
                 outfile << score;
             }
@@ -183,8 +184,6 @@ void GameManager::resetCharacterAfterCollision()
 
             outfile.close();
         }
-
-//        exit(0);
     }
 
     character_->setState(characterStates::normal);

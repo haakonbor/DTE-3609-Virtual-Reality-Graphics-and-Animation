@@ -19,6 +19,7 @@ void ScoreText::privateRender() {
     glEnable(GL_COLOR_MATERIAL);
     glColor3f(1.0f, 1.0f, 1.0f);
 
+    // Save and reset matrices
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
@@ -34,6 +35,7 @@ void ScoreText::privateRender() {
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c);
     }
 
+    // Reload matrices
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);

@@ -33,6 +33,8 @@ void SceneObject::update(double fps)
   this->privateUpdate();
   for(std::vector<std::shared_ptr<SceneObject> >::iterator it = children_.begin();
       it != children_.end(); it++) {
+      // Update each sceneobject's view matrix to be the camera position,
+      // which in this case is the gamemanager's model matrix
       (*it)->viewMatrix_ = matrix_;
       (*it)->update(fps);
   }
